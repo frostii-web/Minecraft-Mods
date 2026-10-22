@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'dev.frostii.infiniteresourcegenerators'
-version = '1.0.0'
+version = '1.1.0'
 base.archivesName = 'InfiniteResourceGenerators'
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -59,7 +59,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 jar {
-    archiveFileName = 'InfiniteResourceGenerators-1.0.0-forge-1.20.1.jar'
+    archiveFileName = 'InfiniteResourceGenerators-1.1.0-forge-1.20.1.jar'
     manifest.attributes([
         'Specification-Title': 'Infinite Resource Generators',
         'Specification-Version': '1',
@@ -71,9 +71,9 @@ jar {
 }
 
 tasks.register('sourceZip', Zip) {
-    archiveFileName = 'InfiniteResourceGenerators-1.0.0-source.zip'
+    archiveFileName = 'InfiniteResourceGenerators-1.1.0-source.zip'
     destinationDirectory = layout.buildDirectory.dir('distributions')
     from('.') {
-        exclude '.git/**', '.gradle/**', 'build/**', 'run/**', 'logs/**', 'libs/**', '.idea/**', '*.iml'
+        exclude 'releases/**', '.git/**', '.gradle/**', 'build/**', 'run/**', 'logs/**', 'libs/**', '.idea/**', '*.iml'
     }
 }

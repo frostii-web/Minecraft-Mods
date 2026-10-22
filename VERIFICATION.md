@@ -1,65 +1,111 @@
-# Verification
+# Infinite Resource Generators 1.1.0 verification
 
-## Tested environment
+Detailed logs and reusable test fixtures are included in the source ZIP under `verification/`.
 
-* Java: Temurin JDK 17.0.17+10 (download SHA-256 verified).
-* Forge: 1.20.1-47.4.0, using the official MDK's Java 17 / Gradle 8.8 toolchain and ForgeGradle 6.0.36.
-* GTCEu Modern: 7.5.1, official published runtime and embedded libraries.
-* KubeJS: 2001.6.5-build.16; Rhino: 2001.2.3-build.10; Architectury: 9.2.14.
-* JEI: 15.20.0.127.
-* Linux x86-64, headless. Tests use isolated worlds, not a supplied copy of the full Community Pack.
+## Environment
 
-## Completed automated checks
+Java 17.0.17+10, Minecraft 1.20.1, Forge 47.4.0, GTCEu Modern 7.5.1,
+KubeJS 2001.6.5-build.16, Rhino 2001.2.3-build.10, Architectury 9.2.14,
+and JEI 15.20.0.127. Tests run on a headless Linux host in isolated worlds.
 
-`./gradlew runGameTestServer -PcompatMods -x downloadAssets` completed with **exit code 0** and **all 12 required GameTests passed** with `outputInventorySlots = 54`, the maximum configured size. The same 11-test suite also passed first with the default generated configuration before the transfer-limit test was added. Compilation and resource processing succeeded. Gradle's ordinary `test` task has no JUnit source; the actual gameplay tests run in Forge's GameTest server. No zero-test run is counted as validation.
+## Gradle build and gameplay tests
 
-| GameTest | Verified behavior |
+`./gradlew --offline build runGameTestServer -PcompatMods -x downloadAssets`
+completed successfully with **all 22 required Forge GameTests passing**.
+The existing Java 17 toolchain and dependency cache were used; no dependency
+versions or TLS checks were relaxed. The test configuration uses the maximum
+54 output slots, generation interval 20 ticks, output interval 5 ticks, and a
+64-item global automatic-output budget.
+
+| Test | Behavior verified |
 | --- | --- |
-| `producesExactlyOnePerTwentyTicks` | No early item at tick 19; one at 20; two at 40; correct iron ore item. |
-| `fullInventoryPausesAndResumes` | Nine full stacks pause production; capability extraction frees space; production resumes; no loose item entities. |
-| `hopperExtractsRealOutput` | A real vanilla hopper receives generated ore. |
-| `adjacentChestReceivesOutput` | An adjacent chest receives exactly two generated items after 40 ticks. |
-| `autoOutputHonorsTransferLimitAndKeepsRejectedItems` | Automatic output transfers at most 64 items in one attempt and retains the remainder when a full adjacent chest rejects insertion. |
-| `automationRejectsInsertionAndSimulationIsSafe` | All six sides reject insertion; simulated extraction leaves inventory unchanged. |
-| `nbtRoundTripPreservesSelectionAndOutput` | Selected item, output count, and independent per-item unlock data survive serialization; reducing configured slots preserves an occupied trailing slot. |
-| `multipleSelectionsSupportBothProductionModes` | Round Robin produces one configured resource per cycle in order; All at Once produces every configured resource in one cycle; selections and mode survive NBT reload. |
-| `multipleGeneratorsChangeSelectionIndependently` | Two generators produce different selected ores; switching one retains old output and leaves the other unchanged. |
-| `naturalGtOresAndProhibitedItems` | GT iron/copper/tin/coal/redstone available immediately; registered non-worldgen cobalt ore denied; machines, motors, circuits, tools, storage, and NBT-bearing material items rejected. |
-| `survivalRecipeAndServerMenuAreRegistered` | The documented shaped recipe matches and returns the registered block; the server menu uses the configured output count plus 36 player slots and rejects output insertion. |
-| `actualGtAlloySmelterUnlocksOnlyBronzeIngots` | A powered GT LV alloy smelter consumes copper and tin and produces bronze; ingots start locked and unlock after actual output; bronze plates remain locked. |
+| producesExactlyOnePerTwentyTicks | No early generation, exact interval and item. |
+| fullInventoryPausesAndResumes | Full resource pauses and resumes when extraction makes room. |
+| hopperExtractsRealOutput | Real vanilla hopper extracts through the DOWN capability. |
+| adjacentChestReceivesOutput | Automatic output inserts real generated items into a chest. |
+| autoOutputHonorsTransferLimitAndKeepsRejectedItems | Shared 64-item output limit; full destinations do not delete items. |
+| automationRejectsInsertionAndSimulationIsSafe | All sides reject insertion; simulated extraction changes nothing. |
+| nbtRoundTripPreservesSelectionAndOutput | Output and selections persist; occupied trailing slots survive capacity reduction; world unlock data persists. |
+| sixIndependentSlotsIncludeDuplicateResources | All six rows generate simultaneously, duplicates work, active filters deduplicate, seventh/invalid rows are rejected. |
+| fullResourceDoesNotBlockCompatibleOtherResource | Full iron does not block tin inserting into compatible space; paused iron resumes. |
+| changingClearingAndDisablingPrunesFiltersPreservesLeftovers | Immediate timer reset, deduplication, live cached-handler filter changes, disabled rows, retained/retrievable leftovers, server rejects inactive filter IDs. |
+| multipleFacesShareSupplyWithoutDuplication | Combined/custom routes and shared supply conserve counts; simulation, NONE, DISABLED, unsided access, and newly enabled ALL ACTIVE defaults. |
+| extractOnlyNeverPushesAndAllActiveAdapts | EXTRACT_ONLY/DISABLED do not push; ALL ACTIVE follows resource changes. |
+| versionedNbtAndLegacyMigrationPreserveConfiguration | Six-row settings/progress, disabled state, route/filter persistence; single-resource, nine-selection, and recognized face-save migration. |
+| actualGtItemPipeReceivesPushedResources | A real connected GT brass item pipe carries both iron and tin to a chest. |
+| actualGtConveyorExtractsOnlyPermittedResources | A real LV conveyor imports through an EXTRACT_ONLY face into a GT pipe; tin moves, filtered iron stays, counts are conserved. |
+| migrationRecoveryRetainsOverflowAndMissingRegistryItems | Overflow items become retrievable; missing-registration NBT survives reload; empty rows stay empty. |
+| partialShiftClickRetrievesLeftoversAndMarksStorageDirty | Partial shift-click into a nearly full inventory conserves leftovers and marks the chunk for saving without adding a generation selection. |
+| capabilityLifecycleAndStackSnapshotsStaySafe | Returned stacks cannot mutate storage; capability invalidation/revival preserves supply. |
+| multipleGeneratorsChangeSelectionIndependently | Independent blocks and preservation of previously generated output on selection change. |
+| naturalGtOresAndProhibitedItems | Existing world-generation eligibility and prohibited-item rules. |
+| survivalRecipeAndServerMenuAreRegistered | Original survival recipe and output-only menu slots. |
+| actualGtAlloySmelterUnlocksOnlyBronzeIngots | Real completed GT recipe unlocks bronze ingots, while plates remain locked. |
 
-The completed test log is included in `verification/gradle-gametest.log`.
+Gradle's ordinary `test` task has no JUnit sources; it is not counted as a
+successful gameplay test. The actual Forge result is in
+`verification/gradle-gametest.log`.
 
-Forge generated and loaded `config/infiniteresourcegenerators-common.toml` with the requested five keys, defaults, comments, and numeric ranges. A second fresh-world run loaded `outputInventorySlots = 54`; all 12 tests passed against 54-slot block entities, menus, serialization, automation, and item capabilities. GUI rendering remains part of the graphical-client checks below.
+## Exact 3D face picking
 
-## Production JAR checks
+`verification/CubeGeometryCheck.java` runs without Minecraft and passed **6,006
+face assertions**, including head-on world directions, 2,000 deterministic
+rotations, visible-face centroid picking, background rejection, and reachability
+of all six faces. Rendering and picking share the same projected polygons.
+This checks geometry and direction mapping; it does not claim a graphical client
+rendering test.
 
-The compiled, reobfuscated release JAR was loaded by a separately installed production Forge dedicated server with the exact mod versions above. This exercised the release artifact, rather than only development classes. The server reached `Done` and built a catalog containing 1,639 naturally available ore items.
+Reproduce with Java 17:
 
-A generator placed by a server command selected `gtceu:iron_ore` and produced 36 ore items over 36 seconds. The server saved and stopped normally. On restarting, its selected resource and all 36 saved items were present and generation resumed.
+```sh
+mkdir -p build/geometry-check
+javac -d build/geometry-check src/main/java/dev/frostii/irg/client/CubeGeometry.java verification/CubeGeometryCheck.java
+java -cp build/geometry-check CubeGeometryCheck
+```
 
-An isolated KubeJS verification script then supplied a real GT LV alloy smelter with three copper ingots, one tin ingot, and power. The machine produced four bronze ingots. The resulting world SavedData on disk contains `gtceu:bronze_ingot` and excludes `gtceu:bronze_plate`. A further restart verified both the generator's retained output/selection and that the bronze ingot unlock persisted while the bronze plate remained locked. The log records `IRG_GENERATOR_RESTART_PASSED` and `IRG_UNLOCK_RESTART_PASSED`.
+## Release JAR
 
-JAR inspection confirmed:
+The release is reobfuscated by ForgeGradle. ZIP integrity, all JSON resources,
+manifest/version, Forge mod metadata, original recipe, mixin registration, and
+new generation/routing/GUI classes are checked. All **37 class files** have Java
+17 class-file major version 61. The JAR bundles no Minecraft or GTCEu classes.
+The SHA-256 is supplied with the deliverables.
 
-* 29 real Java 17 class files (`CAFEBABE`, class-file major version 61).
-* Forge `mods.toml`, manifest Mixin registration, and the required GT output mixin.
-* Block/item models, blockstate, language file, three PNG textures, shaped recipe, block loot table, mining tags, and recipe advancement.
-* All JSON resources parse successfully; no Minecraft or GTCEu classes are bundled.
+## Release-server migration and restart
 
-The reusable cloud install script was also executed successfully. It selects JDK 17, preserves TLS/checksum verification, refreshes environment-local proxy configuration without storing credentials, and builds the JAR/source ZIP.
+A separate production Forge installation loads the exact compiled release JAR
+with GTCEu 7.5.1 and the same compatibility mods. The test copies the earlier
+1.0.0 smoke-test world; the original world is not modified. The first release
+run reaches `Done`, migrates the existing generator and its saved iron output,
+configures independent iron/tin/copper rows (including an enabled duplicate and
+a disabled duplicate), and transfers all three resources through one ALL ACTIVE
+PUSH face into a real chest. A second face stays EXTRACT_ONLY with a two-resource
+CUSTOM filter; its adjacent chest stays empty. Inactive cobblestone leftovers
+remain in shared storage. The server logs
+`IRG110_RELEASE_MIGRATION_AND_ROUTING_PASSED` and saves/stops cleanly.
 
-## Checks still requiring a graphical client or the full pack
+The restart fixture checks saved generation selections, disabled state, an empty
+row remaining empty, exactly three active filter resources, face modes, the
+CUSTOM filter, retained leftovers, and resumed independent production. It logged
+`IRG110_RELEASE_RESTART_PASSED` and stopped cleanly with exit code 0. The
+fixture is in `verification/ReleaseSmoke.js`; it is isolated test code and is not
+included in the mod JAR. Startup/restart logs are included in `verification/`.
 
-* Opening, rendering, and interacting with the searchable client GUI in singleplayer/multiplayer.
-* Visual confirmation of textures, JEI listing, and JEI recipe display. The recipe and registration were checked on the server; JEI was loaded at its requested version.
-* Extraction by an actual GT conveyor/item-pipe arrangement. Standard Forge extraction and real hopper/chest automation passed.
-* Compatibility with the user's complete Community Pack configuration, custom KubeJS scripts, or additional mods. No `mods.zip` was supplied.
+## Limitations
 
-No graphical client session ran because this machine has no active display. These checks are **unperformed**, not passed. Test in the separate world you planned before using a valuable save.
+No graphical client session is available on this host. Opening and visually
+checking the GUI, mouse interaction in a live client/server connection, textures,
+and JEI display remain unperformed. Geometry was tested independently; GUI code
+was compiled. The interface uses a 420 by 244 GUI-unit layout; reduce Minecraft's
+GUI scale if the available scaled viewport is smaller.
 
-## Runtime observations
+The user's complete modpack was not supplied. Integration tests use the exact
+GTCEu version and the compatibility mods listed above. Recognized experimental
+six-face NBT schemas are covered with a fixture; arbitrary earlier schemas cannot
+be guaranteed without their saves. See README migration details, including
+archived extra selections, retained legacy configuration, and recovery storage.
 
-The dependency stack logs nonfatal Rhino reflection warnings while inspecting client-only methods of GT/LDLib on a dedicated server, and unavailable Mojang authentication/background service requests in the isolated offline test. The server starts, recipes execute, and the tests complete despite those upstream messages. No authentication was needed for the local tests. The production test server binds only to loopback and is stopped after validation; its offline-mode setting is not included in the mod or installation instructions.
-
-This verifies the current machine and release artifact. Saved environment configuration is separate from publishing an environment snapshot or validating restoration in a new task.
+The upstream dependency stack logs nonfatal Rhino client-reflection warnings on
+a dedicated server and failed external authentication/update lookups. These
+messages also occurred in the existing baseline; gameplay tests completed with
+exit code 0. Test servers use loopback-only networking and are stopped after use.

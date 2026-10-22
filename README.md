@@ -4,14 +4,16 @@ A Forge **1.20.1 / Java 17** mod for **GTCEu Modern 7.5.1**. Adds one inexpensiv
 
 ## Download
 
-Download the compiled mod: [InfiniteResourceGenerators-1.0.0-forge-1.20.1.jar](releases/InfiniteResourceGenerators-1.0.0-forge-1.20.1.jar?raw=1)
+Download the compiled mod: [InfiniteResourceGenerators-1.1.0-forge-1.20.1.jar](releases/InfiniteResourceGenerators-1.1.0-forge-1.20.1.jar?raw=1)
 
-SHA-256: `082ba55fd70e2ae8fae77900f487124a02fd11bec0fb8b409fef95c5fd9aa340`
+Download the source archive: [InfiniteResourceGenerators-1.1.0-source.zip](releases/InfiniteResourceGenerators-1.1.0-source.zip?raw=1)
+
+The release SHA-256 is provided in `SHA256SUMS`; both downloads are covered by `releases/SHA256SUMS`.
 
 ## Installation
 
 1. Close Minecraft (and the dedicated server, if applicable).
-2. Copy `InfiniteResourceGenerators-1.0.0-forge-1.20.1.jar` into the pack's `mods` directory. On multiplayer, install the same JAR on both the server and every client.
+2. Replace the existing Infinite Resource Generators JAR in the pack's `mods` directory with `InfiniteResourceGenerators-1.1.0-forge-1.20.1.jar`; keep only one version installed. On multiplayer, use the same JAR on both the server and every client.
 3. Keep GTCEu Modern 7.5.1 and its normal dependencies installed. This JAR does not bundle or replace GTCEu, KubeJS, or JEI. Forge 47.3.0 or newer is required; development and server verification use 47.4.0.
 4. Launch the pack and test in a separate world first. An existing world can use the mod without regenerating terrain.
 
@@ -26,11 +28,37 @@ Iron and copper use Forge ingredient tags, so the pack's equivalents work. The b
 
 ## Use
 
-Place the generator and right-click it. Search by translated item name or registry ID, scroll the list, and click any **Ready** resource to add it to the configuration. Click a selected resource again to remove it. Up to nine resources can be selected. Locked forms stay visible and show their unlock instructions on hover. Every configuration change is checked by the server.
+Place the generator and right-click it. The GUI has **Generation**, **Output Routing**, and **Stored Items** tabs. All configuration changes are checked and confirmed by the server.
 
-Click the mode button to switch between **Round Robin** and **All at Once**. Round Robin produces one item from the next selected resource each configured generation cycle. All at Once produces one item from every selected resource each cycle; it pauses unless the complete batch fits, so it never generates only part of a batch. The generator has a configurable output inventory and consumes no input items. Server lag affects wall-clock speed. Changing the resource configuration retains existing output and restarts the generation timer. Inventory, selected resources, mode, and round-robin position save with the block entity.
+### Generation
 
-Hoppers, GT item pipes/conveyors, and other standard Forge item handlers can extract from any side. Automation and the GUI cannot insert into its output. When automatic output is enabled, it offers items to the sided Forge item capability of adjacent inventories at the configured interval and transfer limit. Rejected items remain in the generator. Automation never loads neighboring chunks. Generators only operate while their chunk is ticking; there is no offline catch-up.
+Select one of six numbered generation rows, search by item name or registry ID, and click an available resource to assign it to that row. Locked resources remain visible with unlock instructions. Each row has an **ON/OFF** toggle, an **X** clear button, its own progress bar, and a status. Duplicate resources are allowed. Rows have no relationship to block faces.
+
+Each enabled row produces one item per `generationIntervalTicks`. A row with insufficient compatible storage pauses at its completed cycle and resumes when space is freed; other rows continue independently. Changing, clearing, or enabling/disabling a row resets that row's progress and preserves every previously produced item. There is no power or fuel requirement, and no offline catch-up when chunks are not ticking.
+
+### Output Routing
+
+Drag the textured 3D generator to rotate it, then click a visible face. Face picking uses the actual projected world-direction polygons. Labels identify North, South, East, West, Up, and Down, regardless of the current view; the selected face has a white outline. Rotation and selection stay available without closing the GUI.
+
+Click the selected face's mode to cycle **PUSH** (green), **EXTRACT_ONLY** (yellow), and **DISABLED** (gray). PUSH both automatically transfers to adjacent sided Forge inventories and allows extraction. EXTRACT_ONLY allows external extraction without pushing. DISABLED exposes no items. Newly enabled faces default to ALL ACTIVE. Existing/new blocks initially use PUSH / ALL ACTIVE on all six faces to preserve the original automation behavior.
+
+Each face supports **ALL ACTIVE**, **CUSTOM**, or **NONE**. ALL ACTIVE adapts to enabled, configured generation rows. CUSTOM offers a checklist of item icons and names containing only those active resources, with duplicates removed. Clicking a checklist row switches to CUSTOM and toggles that resource. NONE allows no resources. A routing status reports disabled, no permissions, waiting/blocked, ready, or extraction-only; a compact summary uses P/E for push/extract and */count for all/custom resources.
+
+Several resources can share one face, and several faces can share a resource. Every face uses the same real storage. The automatic-output budget applies across all faces together, with rotating face priority; rejected items remain stored. Cached Forge handlers recheck current permissions and reject insertion. Unsided capability access cannot bypass the filters. GT conveyors are attached to an adjacent GT pipe/machine with the conveyor set to import from the generator; this Forge block does not itself accept GT covers.
+
+Clearing, changing, or disabling the last generation row for a resource immediately removes it from selectable output options and from CUSTOM permissions. Re-enabling that resource does not restore stale CUSTOM checks. Its existing items remain in storage and do not leave automatically through filters that no longer permit them.
+
+### Stored Items
+
+Open Stored Items to take or shift-click output into your inventory, including leftovers whose generation selection has been removed. The shared output inventory accepts no player or automation insertion. A paused resource does not block another resource with compatible space.
+
+### Save migration
+
+Block-entity data is versioned (`DataVersion = 2`). Existing 1.0.0 `Selected`/`Selections` entries become independent enabled rows in their saved order; stored stacks and partial progress are retained. Round Robin and atomic All at Once timing become independent per-row timing. The first six of an older nine-resource selection remain configured; additional IDs are archived in `LegacySelections` and may be reassigned manually in the searchable picker. The complete original configuration is retained under `LegacyConfiguration`.
+
+Recognized experimental face layouts (`Faces` or `Sides` lists, with `Direction`/`Side`, `Resource`/`Selected`, and `Mode`) migrate selections into independent rows and turn each old face resource into a CUSTOM filter. Recognized per-face `Output` inventories join shared storage. No earlier six-face source or save fixture was supplied; other experimental schemas may require a dedicated adapter, and their raw original configuration remains retained for recovery. Unknown face modes become DISABLED.
+
+Occupied trailing inventory slots survive reductions of the TOML capacity. Items beyond the supported 54 visible slots are retained in a saved recovery queue and move into the GUI inventory as room becomes available; breaking the generator also drops that queue. Serialized stacks belonging to missing item registrations remain in `UnresolvedItems` and are retried on future loads. Migration never converts one resource into another.
 
 ## Configuration
 
@@ -38,7 +66,7 @@ Forge creates `config/infiniteresourcegenerators-common.toml` after the mod star
 
 | Setting | Default | Range | Behavior |
 | --- | ---: | ---: | --- |
-| `generationIntervalTicks` | 20 | 1–72000 | Ticks between generation cycles; 20 ticks is approximately one second. |
+| `generationIntervalTicks` | 20 | 1–72000 | Ticks per independent generation row; 20 ticks is approximately one second. |
 | `outputInventorySlots` | 9 | 1–54 | Number of generator output slots. |
 | `autoOutputEnabled` | true | true/false | Push output into adjacent sided Forge item handlers. Pipes and hoppers can still extract when disabled. |
 | `autoOutputIntervalTicks` | 5 | 1–1200 | Ticks between automatic output attempts. |
@@ -71,12 +99,12 @@ On Windows use `gradlew.bat`. ForgeGradle **6.0.36**, Gradle **8.8**, Forge **47
 
 The headless server does not use client sound/image assets, so its command excludes only `downloadAssets`. Client launches download and verify those assets normally. Development runs enable Mixin refmap remapping for the installed dependencies; the production JAR registers its own mixin through its manifest.
 
-GameTests run in `run/gametest`. Use a fresh test world for the bronze progression test, which intentionally verifies bronze starts locked. Tests cover real 20-tick generation, round-robin and all-at-once multi-resource production, full output/resumption, hopper extraction, direct chest output, insertion rejection, NBT serialization, independent generators/selections, natural GT ore availability, prohibited items, and a powered GT LV alloy smelter producing bronze from copper and tin.
+GameTests run in `run/gametest`. Use a fresh test world for the bronze progression test, which intentionally verifies bronze starts locked. Tests cover real 20-tick generation, six independent rows and duplicates, per-resource storage pauses, filtered shared extraction, live filter pruning, leftovers, capability lifecycle/simulation, output modes, NBT migration, hopper/chest output, real GT item pipes/conveyors, eligibility, and a powered GT LV alloy smelter producing bronze. `verification/CubeGeometryCheck.java` separately checks exact face picking and all six world directions.
 
 Outputs:
 
-* `build/libs/InfiniteResourceGenerators-1.0.0-forge-1.20.1.jar`
-* `build/distributions/InfiniteResourceGenerators-1.0.0-source.zip`
+* `build/libs/InfiniteResourceGenerators-1.1.0-forge-1.20.1.jar`
+* `build/distributions/InfiniteResourceGenerators-1.1.0-source.zip`
 
 See `VERIFICATION.md` for checks actually performed and remaining client-side acceptance tests. Compilation alone does not establish successful gameplay.
 

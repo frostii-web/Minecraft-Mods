@@ -1,383 +1,564 @@
-[22Oct2026 07:13:27.718] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgegametestserveruserdev, --gameDir, ., --fml.forgeVersion, 47.4.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mixin, infiniteresourcegenerators.mixins.json]
-[22Oct2026 07:13:27.720] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.17 by Eclipse Adoptium; OS Linux arch amd64 version 6.18.55
-[22Oct2026 07:13:27.764] [main/WARN] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Configuration file /workspace/Minecraft-Mods/run/gametest/config/fml.toml is not correct. Correcting
-[22Oct2026 07:13:27.767] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowSkipGLVersions] was corrected from null to []
-[22Oct2026 07:13:27.767] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowLogHelpMessage] was corrected from null to true
-[22Oct2026 07:13:27.767] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowSquir] was corrected from null to false
-[22Oct2026 07:13:27.767] [main/INFO] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Incorrect key [earlyWindowShowCPU] was corrected from null to false
-[22Oct2026 07:13:27.775] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgegametestserveruserdev
-[22Oct2026 07:13:27.796] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/workspace/.gradle-irg/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23116!/ Service=ModLauncher Env=SERVER
-[22Oct2026 07:13:27.928] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /workspace/.gradle-irg/caches/modules-2/files-2.1/net.minecraftforge/javafmllanguage/1.20.1-47.4.0/f0c0b352173d0a378cbdcec9cfc4ba65899a721/javafmllanguage-1.20.1-47.4.0.jar is missing mods.toml file
-[22Oct2026 07:13:27.929] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /workspace/.gradle-irg/caches/modules-2/files-2.1/net.minecraftforge/lowcodelanguage/1.20.1-47.4.0/e862740d8c84d08dbfedea412bef88fe42e727c5/lowcodelanguage-1.20.1-47.4.0.jar is missing mods.toml file
-[22Oct2026 07:13:27.930] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /workspace/.gradle-irg/caches/modules-2/files-2.1/net.minecraftforge/mclanguage/1.20.1-47.4.0/5719b3a297a33f877ed5dde4cb4bd75c859096af/mclanguage-1.20.1-47.4.0.jar is missing mods.toml file
-[22Oct2026 07:13:27.931] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file /workspace/.gradle-irg/caches/modules-2/files-2.1/net.minecraftforge/fmlcore/1.20.1-47.4.0/235975dafa4309945b59c56b53f31dc5b65a6051/fmlcore-1.20.1-47.4.0.jar is missing mods.toml file
-[22Oct2026 07:13:28.071] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: Found 5 dependencies adding them to mods collection
-[22Oct2026 07:13:28.830] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
-[22Oct2026 07:13:28.839] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgegametestserveruserdev' with arguments [--gameDir, .]
-[22Oct2026 07:13:28.998] [main/INFO] [mixin/]: Remapping refMap rhino-common-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
-[22Oct2026 07:13:28.999] [main/INFO] [mixin/]: Remapping refMap configuration.refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
-[22Oct2026 07:13:29.004] [main/INFO] [mixin/]: Remapping refMap architectury-forge-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
-[22Oct2026 07:13:29.004] [main/INFO] [mixin/]: Remapping refMap architectury-common-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
-[22Oct2026 07:13:29.006] [main/INFO] [mixin/]: Remapping refMap ldlib-common-1.20.1-ldlib-common-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
-[22Oct2026 07:13:29.007] [main/INFO] [mixin/]: Remapping refMap ldlib-forge-1.20.1-ldlib-forge-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
-[22Oct2026 07:13:29.008] [main/INFO] [mixin/]: Remapping refMap kubejs-forge-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
-[22Oct2026 07:13:29.008] [main/INFO] [mixin/]: Remapping refMap kubejs-common-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
-[22Oct2026 07:13:29.010] [main/INFO] [mixin/]: Remapping refMap gtceu.refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
-[22Oct2026 07:13:29.463] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.3).
-[22Oct2026 07:13:32.086] [modloading-worker-0/INFO] [LowDragLib/]: LowDragLib is initializing on platform: Forge
-[22Oct2026 07:13:32.088] [modloading-worker-0/INFO] [LowDragLib/]: create ldlib config folder
-[22Oct2026 07:13:32.099] [modloading-worker-0/INFO] [GregTechCEu/]: GregTechCEu is initializing...
-[22Oct2026 07:13:32.119] [modloading-worker-0/INFO] [Configuration/FileWatching]: Registered configuration config for auto-sync function
-[22Oct2026 07:13:32.121] [modloading-worker-0/INFO] [KubeJS/]: Loaded common.properties
-[22Oct2026 07:13:32.121] [modloading-worker-0/INFO] [KubeJS/]: Loaded dev.properties
-[22Oct2026 07:13:32.129] [modloading-worker-0/INFO] [KubeJS Startup/]: Capturing errors for startup scripts enabled
-[22Oct2026 07:13:32.130] [modloading-worker-0/INFO] [KubeJS/]: Looking for KubeJS plugins...
-[22Oct2026 07:13:32.139] [modloading-worker-0/INFO] [KubeJS/]: Found plugin source kubejs
-[22Oct2026 07:13:32.146] [modloading-worker-0/WARN] [KubeJS/]: Plugin dev.latvian.mods.kubejs.forge.BuiltinKubeJSForgeClientPlugin does not load on server side, skipping
-[22Oct2026 07:13:32.146] [modloading-worker-0/WARN] [KubeJS/]: Plugin dev.latvian.mods.kubejs.integration.forge.gamestages.GameStagesIntegration does not have required mod gamestages loaded, skipping
-[22Oct2026 07:13:32.146] [modloading-worker-0/INFO] [KubeJS/]: Found plugin source gtceu
-[22Oct2026 07:13:32.146] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.4.0, for MC 1.20.1 with MCP 20230612.114412
-[22Oct2026 07:13:32.146] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.4.0 Initialized
-[22Oct2026 07:13:32.203] [modloading-worker-0/INFO] [dev.architectury.networking.forge.NetworkManagerImpl/]: Registering C2S receiver with id architectury:sync_ids
-[22Oct2026 07:13:32.247] [modloading-worker-0/INFO] [KubeJS/]: Found plugin source ldlib
-[22Oct2026 07:13:32.249] [modloading-worker-0/INFO] [KubeJS/]: Done in 118.4 ms
-[22Oct2026 07:13:32.257] [modloading-worker-0/INFO] [Configuration/FileWatching]: Registered gtceu config for auto-sync function
-[22Oct2026 07:13:32.274] [modloading-worker-0/INFO] [GregTechCEu/]: High-Tier is Enabled.
-[22Oct2026 07:13:32.415] [modloading-worker-0/INFO] [Rhino Script Remapper/]: Loading Rhino Minecraft remapper...
-[22Oct2026 07:13:32.416] [modloading-worker-0/INFO] [dev.latvian.mods.rhino.mod.util.RhinoProperties/]: Rhino properties loaded.
-[22Oct2026 07:13:32.418] [modloading-worker-0/INFO] [Rhino Script Remapper/]: Loading mappings for 1.20.1
-[22Oct2026 07:13:32.469] [modloading-worker-0/INFO] [Rhino Script Remapper/]: Done in 0.054 s
-[22Oct2026 07:13:32.711] [modloading-worker-0/ERROR] [net.minecraftforge.fml.loading.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/color/item/ItemColor for invalid dist DEDICATED_SERVER
-[22Oct2026 07:13:32.732] [modloading-worker-0/ERROR] [net.minecraftforge.fml.loading.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/renderer/item/ItemPropertyFunction for invalid dist DEDICATED_SERVER
-[22Oct2026 07:13:32.735] [modloading-worker-0/ERROR] [net.minecraftforge.fml.loading.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/color/item/ItemColor for invalid dist DEDICATED_SERVER
-[22Oct2026 07:13:32.850] [modloading-worker-0/ERROR] [net.minecraftforge.fml.loading.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/gui/GuiGraphics for invalid dist DEDICATED_SERVER
-[22Oct2026 07:13:32.853] [modloading-worker-0/ERROR] [net.minecraftforge.fml.loading.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/gui/GuiGraphics for invalid dist DEDICATED_SERVER
-[22Oct2026 07:13:32.857] [modloading-worker-0/ERROR] [net.minecraftforge.fml.loading.RuntimeDistCleaner/DISTXFORM]: Attempted to load class com/lowdragmc/lowdraglib/client/scene/WorldSceneRenderer for invalid dist DEDICATED_SERVER
-[22Oct2026 07:13:32.903] [modloading-worker-0/INFO] [KubeJS Startup/]: example.js#5: Hello, World! (Loaded startup scripts)
-[22Oct2026 07:13:32.907] [modloading-worker-0/INFO] [KubeJS Startup/]: Loaded script startup_scripts:example.js in 0.038 s
-[22Oct2026 07:13:32.908] [modloading-worker-0/INFO] [KubeJS Startup/]: Loaded 1/1 KubeJS startup scripts in 0.437 s with 0 errors and 0 warnings
-[22Oct2026 07:13:32.933] [modloading-worker-0/INFO] [dev.architectury.networking.forge.NetworkManagerImpl/]: Registering C2S receiver with id kubejs:send_data_from_client
-[22Oct2026 07:13:32.934] [modloading-worker-0/INFO] [dev.architectury.networking.forge.NetworkManagerImpl/]: Registering C2S receiver with id kubejs:first_click
-[22Oct2026 07:13:32.941] [main/INFO] [GregTechCEu/]: GTCEu common proxy init!
-[22Oct2026 07:13:32.976] [main/INFO] [GregTechCEu/]: Registering material registries
-[22Oct2026 07:13:32.977] [main/INFO] [GregTechCEu/]: Registering GTCEu Materials
-[22Oct2026 07:13:33.074] [main/INFO] [GregTechCEu/]: Registering addon Materials
-[22Oct2026 07:13:33.242] [main/WARN] [GregTechCEu/]: FluidStorageKey{gtceu:liquid} already has an associated fluid for material gtceu:milk
-[22Oct2026 07:13:33.243] [main/WARN] [GregTechCEu/]: FluidStorageKey{gtceu:liquid} already has an associated fluid for material gtceu:water
-[22Oct2026 07:13:33.248] [main/WARN] [GregTechCEu/]: FluidStorageKey{gtceu:liquid} already has an associated fluid for material gtceu:lava
-[22Oct2026 07:13:33.648] [main/INFO] [GregTechCEu/]: Registering KeyBinds
-[22Oct2026 07:13:33.680] [main/INFO] [KubeJS/]: Skipping minecraft:sound_event registry
-[22Oct2026 07:13:33.691] [main/INFO] [KubeJS/]: Skipping minecraft:fluid registry
-[22Oct2026 07:13:33.749] [main/INFO] [KubeJS/]: Skipping minecraft:block registry
-[22Oct2026 07:13:33.875] [main/INFO] [KubeJS/]: Skipping minecraft:attribute registry
-[22Oct2026 07:13:33.879] [main/INFO] [KubeJS/]: Skipping minecraft:mob_effect registry
-[22Oct2026 07:13:33.881] [main/INFO] [KubeJS/]: Skipping minecraft:particle_type registry
-[22Oct2026 07:13:33.886] [main/INFO] [KubeJS/]: Skipping minecraft:item registry
-[22Oct2026 07:13:34.065] [main/INFO] [KubeJS/]: Skipping minecraft:entity_type registry
-[22Oct2026 07:13:34.069] [main/INFO] [KubeJS/]: Skipping minecraft:sensor_type registry
-[22Oct2026 07:13:34.071] [main/INFO] [KubeJS/]: Skipping minecraft:memory_module_type registry
-[22Oct2026 07:13:34.073] [main/INFO] [KubeJS/]: Skipping minecraft:potion registry
-[22Oct2026 07:13:34.075] [main/INFO] [KubeJS/]: Skipping minecraft:game_event registry
-[22Oct2026 07:13:34.076] [main/INFO] [KubeJS/]: Skipping minecraft:enchantment registry
-[22Oct2026 07:13:34.079] [main/INFO] [KubeJS/]: Skipping minecraft:block_entity_type registry
-[22Oct2026 07:13:34.099] [main/INFO] [KubeJS/]: Skipping minecraft:painting_variant registry
-[22Oct2026 07:13:34.104] [main/INFO] [KubeJS/]: Skipping minecraft:stat_type registry
-[22Oct2026 07:13:34.106] [main/INFO] [KubeJS/]: Skipping minecraft:custom_stat registry
-[22Oct2026 07:13:34.108] [main/INFO] [KubeJS/]: Skipping minecraft:chunk_status registry
-[22Oct2026 07:13:34.113] [main/INFO] [KubeJS/]: Skipping minecraft:rule_test registry
-[22Oct2026 07:13:34.115] [main/INFO] [KubeJS/]: Skipping minecraft:rule_block_entity_modifier registry
-[22Oct2026 07:13:34.116] [main/INFO] [KubeJS/]: Skipping minecraft:pos_rule_test registry
-[22Oct2026 07:13:34.117] [main/INFO] [KubeJS/]: Skipping minecraft:menu registry
-[22Oct2026 07:13:34.119] [main/INFO] [KubeJS/]: Skipping minecraft:recipe_type registry
-[22Oct2026 07:13:34.120] [main/INFO] [KubeJS/]: Skipping minecraft:recipe_serializer registry
-[22Oct2026 07:13:34.130] [main/INFO] [KubeJS/]: Skipping minecraft:position_source_type registry
-[22Oct2026 07:13:34.132] [main/INFO] [KubeJS/]: Skipping minecraft:command_argument_type registry
-[22Oct2026 07:13:34.134] [main/INFO] [KubeJS/]: Skipping minecraft:villager_type registry
-[22Oct2026 07:13:34.135] [main/INFO] [KubeJS/]: Skipping minecraft:villager_profession registry
-[22Oct2026 07:13:34.136] [main/INFO] [KubeJS/]: Skipping minecraft:point_of_interest_type registry
-[22Oct2026 07:13:34.137] [main/INFO] [KubeJS/]: Skipping minecraft:schedule registry
-[22Oct2026 07:13:34.137] [main/INFO] [KubeJS/]: Skipping minecraft:activity registry
-[22Oct2026 07:13:34.138] [main/INFO] [KubeJS/]: Skipping minecraft:loot_pool_entry_type registry
-[22Oct2026 07:13:34.139] [main/INFO] [KubeJS/]: Skipping minecraft:loot_function_type registry
-[22Oct2026 07:13:34.140] [main/INFO] [KubeJS/]: Skipping minecraft:loot_condition_type registry
-[22Oct2026 07:13:34.142] [main/INFO] [KubeJS/]: Skipping minecraft:loot_number_provider_type registry
-[22Oct2026 07:13:34.143] [main/INFO] [KubeJS/]: Skipping minecraft:loot_nbt_provider_type registry
-[22Oct2026 07:13:34.144] [main/INFO] [KubeJS/]: Skipping minecraft:loot_score_provider_type registry
-[22Oct2026 07:13:34.144] [main/INFO] [KubeJS/]: Skipping minecraft:float_provider_type registry
-[22Oct2026 07:13:34.145] [main/INFO] [KubeJS/]: Skipping minecraft:int_provider_type registry
-[22Oct2026 07:13:34.146] [main/INFO] [KubeJS/]: Skipping minecraft:height_provider_type registry
-[22Oct2026 07:13:34.147] [main/INFO] [KubeJS/]: Skipping minecraft:block_predicate_type registry
-[22Oct2026 07:13:34.148] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/carver registry
-[22Oct2026 07:13:34.148] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/feature registry
-[22Oct2026 07:13:34.151] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/structure_processor registry
-[22Oct2026 07:13:34.152] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/structure_placement registry
-[22Oct2026 07:13:34.152] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/structure_piece registry
-[22Oct2026 07:13:34.153] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/structure_type registry
-[22Oct2026 07:13:34.154] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/placement_modifier_type registry
-[22Oct2026 07:13:34.155] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/block_state_provider_type registry
-[22Oct2026 07:13:34.155] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/foliage_placer_type registry
-[22Oct2026 07:13:34.156] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/trunk_placer_type registry
-[22Oct2026 07:13:34.156] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/root_placer_type registry
-[22Oct2026 07:13:34.157] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/tree_decorator_type registry
-[22Oct2026 07:13:34.159] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/feature_size_type registry
-[22Oct2026 07:13:34.160] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/biome_source registry
-[22Oct2026 07:13:34.161] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/chunk_generator registry
-[22Oct2026 07:13:34.161] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/material_condition registry
-[22Oct2026 07:13:34.163] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/material_rule registry
-[22Oct2026 07:13:34.163] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/density_function_type registry
-[22Oct2026 07:13:34.164] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/structure_pool_element registry
-[22Oct2026 07:13:34.164] [main/INFO] [KubeJS/]: Skipping minecraft:cat_variant registry
-[22Oct2026 07:13:34.165] [main/INFO] [KubeJS/]: Skipping minecraft:frog_variant registry
-[22Oct2026 07:13:34.166] [main/INFO] [KubeJS/]: Skipping minecraft:banner_pattern registry
-[22Oct2026 07:13:34.166] [main/INFO] [KubeJS/]: Skipping minecraft:instrument registry
-[22Oct2026 07:13:34.167] [main/INFO] [KubeJS/]: Skipping minecraft:decorated_pot_patterns registry
-[22Oct2026 07:13:34.168] [main/INFO] [KubeJS/]: Skipping minecraft:creative_mode_tab registry
-[22Oct2026 07:13:34.171] [main/INFO] [KubeJS/]: Skipping forge:biome_modifier_serializers registry
-[22Oct2026 07:13:34.174] [main/INFO] [KubeJS/]: Skipping forge:display_contexts registry
-[22Oct2026 07:13:34.175] [main/INFO] [KubeJS/]: Skipping forge:entity_data_serializers registry
-[22Oct2026 07:13:34.176] [main/INFO] [KubeJS/]: Skipping forge:fluid_type registry
-[22Oct2026 07:13:34.180] [main/INFO] [KubeJS/]: Skipping forge:global_loot_modifier_serializers registry
-[22Oct2026 07:13:34.181] [main/INFO] [KubeJS/]: Skipping forge:holder_set_type registry
-[22Oct2026 07:13:34.184] [main/INFO] [KubeJS/]: Skipping forge:structure_modifier_serializers registry
-[22Oct2026 07:13:34.185] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/biome registry
-[22Oct2026 07:13:34.274] [modloading-worker-0/INFO] [KubeJS Startup/]: Capturing errors for startup scripts disabled
-[22Oct2026 07:13:34.369] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [configuration] Starting version check at https://raw.githubusercontent.com/Toma1O6/UpdateSchemas/master/configuration-forge.json
-[22Oct2026 07:13:34.984] [main/ERROR] [net.minecraft.server.dedicated.Settings/]: Failed to load properties from file: server.properties
-java.nio.file.NoSuchFileException: server.properties
-	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:92) ~[?:?]
-	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106) ~[?:?]
-	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111) ~[?:?]
-	at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:218) ~[?:?]
-	at java.nio.file.Files.newByteChannel(Files.java:380) ~[?:?]
-	at java.nio.file.Files.newByteChannel(Files.java:432) ~[?:?]
-	at java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:422) ~[?:?]
-	at java.nio.file.Files.newInputStream(Files.java:160) ~[?:?]
-	at net.minecraft.server.dedicated.Settings.loadFromFile(Settings.java:36) ~[forge-1.20.1-47.4.0_mapped_official_1.20.1.jar:?]
-	at net.minecraft.server.dedicated.DedicatedServerProperties.fromFile(DedicatedServerProperties.java:137) ~[forge-1.20.1-47.4.0_mapped_official_1.20.1.jar:?]
-	at net.minecraft.server.dedicated.DedicatedServerSettings.<init>(DedicatedServerSettings.java:12) ~[forge-1.20.1-47.4.0_mapped_official_1.20.1.jar:?]
-	at net.minecraft.server.Main.main(Main.java:126) ~[forge-1.20.1-47.4.0_mapped_official_1.20.1.jar:?]
-	at net.minecraftforge.gametest.GameTestMain.main(GameTestMain.java:16) ~[forge-1.20.1-47.4.0_mapped_official_1.20.1.jar:?]
-	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
-	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
-	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
-	at java.lang.reflect.Method.invoke(Method.java:569) ~[?:?]
-	at net.minecraftforge.fml.loading.targets.ForgeGametestUserdevLaunchHandler.devService(ForgeGametestUserdevLaunchHandler.java:16) ~[fmlloader-1.20.1-47.4.0.jar:?]
-	at net.minecraftforge.fml.loading.targets.CommonDevLaunchHandler.lambda$makeService$7(CommonDevLaunchHandler.java:135) ~[fmlloader-1.20.1-47.4.0.jar:?]
-	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
-	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
-	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
-	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
-	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
-	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
-	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
-	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
-[22Oct2026 07:13:34.995] [main/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
-[22Oct2026 07:13:35.013] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/workspace/.gradle-irg/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.0_mapped_official_1.20.1/forge-1.20.1-47.4.0_mapped_official_1.20.1.jar%23181!/assets/.mcassetsroot' uses unexpected schema
-[22Oct2026 07:13:35.013] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/workspace/.gradle-irg/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.0_mapped_official_1.20.1/forge-1.20.1-47.4.0_mapped_official_1.20.1.jar%23181!/data/.mcassetsroot' uses unexpected schema
-[22Oct2026 07:13:37.551] [main/INFO] [GregTechCEu/]: Registering dungeon loot...
-[22Oct2026 07:13:37.555] [main/INFO] [GregTechCEu/]: GregTech Data loading took 2539ms
-[22Oct2026 07:13:37.595] [main/INFO] [net.minecraft.server.MinecraftServer/]: Found new data pack gtceu:dynamic_data, loading it automatically
-[22Oct2026 07:13:37.606] [main/INFO] [KubeJS/]: Generated SERVER_DATA data (1 files)
-[22Oct2026 07:13:37.608] [main/INFO] [KubeJS Server/]: Capturing errors for server scripts enabled
-[22Oct2026 07:13:37.615] [main/ERROR] [net.minecraftforge.fml.loading.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/color/item/ItemColor for invalid dist DEDICATED_SERVER
-[22Oct2026 07:13:37.616] [main/ERROR] [net.minecraftforge.fml.loading.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/renderer/item/ItemPropertyFunction for invalid dist DEDICATED_SERVER
-[22Oct2026 07:13:37.616] [main/ERROR] [net.minecraftforge.fml.loading.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/color/item/ItemColor for invalid dist DEDICATED_SERVER
-[22Oct2026 07:13:37.618] [main/ERROR] [net.minecraftforge.fml.loading.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/gui/GuiGraphics for invalid dist DEDICATED_SERVER
-[22Oct2026 07:13:37.619] [main/ERROR] [net.minecraftforge.fml.loading.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/gui/GuiGraphics for invalid dist DEDICATED_SERVER
-[22Oct2026 07:13:37.620] [main/ERROR] [net.minecraftforge.fml.loading.RuntimeDistCleaner/DISTXFORM]: Attempted to load class com/lowdragmc/lowdraglib/client/scene/WorldSceneRenderer for invalid dist DEDICATED_SERVER
-[22Oct2026 07:13:37.621] [main/INFO] [KubeJS Server/]: example.js#5: Hello, World! (Loaded server scripts)
-[22Oct2026 07:13:37.621] [main/INFO] [KubeJS Server/]: Loaded script server_scripts:example.js in 0.0 s
-[22Oct2026 07:13:37.621] [main/INFO] [KubeJS Server/]: Loaded 1/1 KubeJS server scripts in 0.011 s with 0 errors and 0 warnings
-[22Oct2026 07:13:37.621] [main/INFO] [KubeJS Server/]: Scripts loaded
-[22Oct2026 07:13:39.440] [Forge Version Check/WARN] [net.minecraftforge.fml.VersionChecker/]: Failed to process update information
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build
+Task :compileJava
+/workspace/Minecraft-Mods/src/main/java/dev/frostii/irg/InfiniteResourceGenerators.java:53: warning: [removal] get() in ModLoadingContext has been deprecated and marked for removal
+ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GeneratorConfig.SPEC, "infiniteresourcegenerators-common.toml");
+^
+/workspace/Minecraft-Mods/src/main/java/dev/frostii/irg/InfiniteResourceGenerators.java:54: warning: [removal] get() in FMLJavaModLoadingContext has been deprecated and marked for removal
+IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+^
+/workspace/Minecraft-Mods/src/main/java/dev/frostii/irg/network/ModNetwork.java:21: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+private static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(new ResourceLocation(InfiniteResourceGenerators.MOD_ID, "main"), () -> VERSION, VERSION::equals, VERSION::equals);
+^
+/workspace/Minecraft-Mods/src/main/java/dev/frostii/irg/client/GeneratorScreen.java:135: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+RenderSystem.setShaderTexture(0,new ResourceLocation("infiniteresourcegenerators","textures/block/generator_"+texture+".png"));
+^
+/workspace/Minecraft-Mods/src/main/java/dev/frostii/irg/gametest/GeneratorGameTests.java:178: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+test.assertFalse(g.configureSlot(0,new ResourceLocation("minecraft","chest"),true),"Prohibited resource accepted");
+^
+/workspace/Minecraft-Mods/src/main/java/dev/frostii/irg/gametest/GeneratorGameTests.java:310: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+var pipeBlock=ForgeRegistries.BLOCKS.getValue(new ResourceLocation("gtceu","brass_normal_item_pipe"));
+^
+/workspace/Minecraft-Mods/src/main/java/dev/frostii/irg/gametest/GeneratorGameTests.java:325: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+var pipeBlock=ForgeRegistries.BLOCKS.getValue(new ResourceLocation("gtceu","brass_normal_item_pipe"));
+^
+/workspace/Minecraft-Mods/src/main/java/dev/frostii/irg/gametest/GeneratorGameTests.java:392: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+test.assertTrue(ResourceCatalog.get(new ResourceLocation("gtceu", path)) == null, "GT component was listed: " + path);
+^
+/workspace/Minecraft-Mods/src/main/java/dev/frostii/irg/gametest/GeneratorGameTests.java:410: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+var recipe = test.getLevel().getRecipeManager().byKey(new ResourceLocation(InfiniteResourceGenerators.MOD_ID, "resource_generator")).orElseThrow();
+^
+/workspace/Minecraft-Mods/src/main/java/dev/frostii/irg/gametest/GeneratorGameTests.java:430: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+var block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation("gtceu", "lv_alloy_smelter"));
+^
+/workspace/Minecraft-Mods/src/main/java/dev/frostii/irg/resource/ResourceCatalog.java:25: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+private static final TagKey<Item> ORE_TAG = TagKey.create(Registries.ITEM, new ResourceLocation("forge", "ores"));
+^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+11 warnings
+Task :processResources UP-TO-DATE
+Task :classes
+Task :jar
+Task :downloadMcpConfig
+Task :extractSrg UP-TO-DATE
+Task :createMcpToSrg UP-TO-DATE
+Task :reobfJar
+Task :jarJar SKIPPED
+Task :reobfJarJar SKIPPED
+Task :assemble
+Task :compileTestJava NO-SOURCE
+Task :processTestResources NO-SOURCE
+Task :testClasses UP-TO-DATE
+Task :test NO-SOURCE
+Task :check UP-TO-DATE
+Task :build
+Task :createSrgToMcp UP-TO-DATE
+Task :downloadMCMeta UP-TO-DATE
+Task :extractNatives UP-TO-DATE
+Task :makeSrcDirs
+Task :prepareRuns
+Task :prepareRunGameTestServer
+Task :prepareRunGameTestServerCompile
+Task :runGameTestServer
+2026-10-22 08:29:01,327 main WARN Advanced terminal features are not available in this environment
+[08:29:01] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgegametestserveruserdev, --gameDir, ., --fml.forgeVersion, 47.4.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mixin, infiniteresourcegenerators.mixins.json]
+[08:29:01] [main/INFO] [cp.mo.mo.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.17 by Eclipse Adoptium; OS Linux arch amd64 version 6.18.55
+[08:29:01] [main/INFO] [ne.mi.fm.lo.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgegametestserveruserdev
+[08:29:01] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/workspace/.gradle-irg/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23116!/ Service=ModLauncher Env=SERVER
+[08:29:02] [main/WARN] [ne.mi.fm.lo.mo.ModFileParser/LOADING]: Mod file /workspace/.gradle-irg/caches/modules-2/files-2.1/net.minecraftforge/javafmllanguage/1.20.1-47.4.0/f0c0b352173d0a378cbdcec9cfc4ba65899a721/javafmllanguage-1.20.1-47.4.0.jar is missing mods.toml file
+[08:29:02] [main/WARN] [ne.mi.fm.lo.mo.ModFileParser/LOADING]: Mod file /workspace/.gradle-irg/caches/modules-2/files-2.1/net.minecraftforge/lowcodelanguage/1.20.1-47.4.0/e862740d8c84d08dbfedea412bef88fe42e727c5/lowcodelanguage-1.20.1-47.4.0.jar is missing mods.toml file
+[08:29:02] [main/WARN] [ne.mi.fm.lo.mo.ModFileParser/LOADING]: Mod file /workspace/.gradle-irg/caches/modules-2/files-2.1/net.minecraftforge/mclanguage/1.20.1-47.4.0/5719b3a297a33f877ed5dde4cb4bd75c859096af/mclanguage-1.20.1-47.4.0.jar is missing mods.toml file
+[08:29:02] [main/WARN] [ne.mi.fm.lo.mo.ModFileParser/LOADING]: Mod file /workspace/.gradle-irg/caches/modules-2/files-2.1/net.minecraftforge/fmlcore/1.20.1-47.4.0/235975dafa4309945b59c56b53f31dc5b65a6051/fmlcore-1.20.1-47.4.0.jar is missing mods.toml file
+[08:29:02] [main/INFO] [ne.mi.fm.lo.mo.JarInJarDependencyLocator/]: Found 5 dependencies adding them to mods collection
+[08:29:04] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[08:29:04] [main/INFO] [cp.mo.mo.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgegametestserveruserdev' with arguments [--gameDir, .]
+[08:29:05] [main/INFO] [mixin/]: Remapping refMap rhino-common-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
+[08:29:05] [main/INFO] [mixin/]: Remapping refMap configuration.refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
+[08:29:05] [main/INFO] [mixin/]: Remapping refMap architectury-forge-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
+[08:29:05] [main/INFO] [mixin/]: Remapping refMap architectury-common-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
+[08:29:05] [main/INFO] [mixin/]: Remapping refMap ldlib-common-1.20.1-ldlib-common-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
+[08:29:05] [main/INFO] [mixin/]: Remapping refMap ldlib-forge-1.20.1-ldlib-forge-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
+[08:29:05] [main/INFO] [mixin/]: Remapping refMap kubejs-forge-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
+[08:29:05] [main/INFO] [mixin/]: Remapping refMap kubejs-common-refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
+[08:29:05] [main/INFO] [mixin/]: Remapping refMap gtceu.refmap.json using /workspace/Minecraft-Mods/build/createSrgToMcp/output.srg
+[08:29:06] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.3).
+[08:29:12] [modloading-worker-0/INFO] [LowDragLib/]: LowDragLib is initializing on platform: Forge
+[08:29:12] [modloading-worker-0/INFO] [Configuration/FileWatching]: Registered configuration config for auto-sync function
+[08:29:12] [modloading-worker-0/INFO] [de.ar.ne.fo.NetworkManagerImpl/]: Registering C2S receiver with id architectury:sync_ids
+[08:29:12] [modloading-worker-0/INFO] [GregTechCEu/]: GregTechCEu is initializing...
+[08:29:12] [modloading-worker-0/INFO] [KubeJS/]: Loaded common.properties
+[08:29:12] [modloading-worker-0/INFO] [KubeJS/]: Loaded dev.properties
+[08:29:12] [modloading-worker-0/INFO] [KubeJS Startup/]: Capturing errors for startup scripts enabled
+[08:29:12] [modloading-worker-0/INFO] [KubeJS/]: Looking for KubeJS plugins...
+[08:29:12] [modloading-worker-0/INFO] [KubeJS/]: Found plugin source kubejs
+[08:29:12] [modloading-worker-0/WARN] [KubeJS/]: Plugin dev.latvian.mods.kubejs.forge.BuiltinKubeJSForgeClientPlugin does not load on server side, skipping
+[08:29:12] [modloading-worker-0/WARN] [KubeJS/]: Plugin dev.latvian.mods.kubejs.integration.forge.gamestages.GameStagesIntegration does not have required mod gamestages loaded, skipping
+[08:29:12] [modloading-worker-0/INFO] [KubeJS/]: Found plugin source gtceu
+[08:29:12] [modloading-worker-0/INFO] [KubeJS/]: Found plugin source ldlib
+[08:29:12] [modloading-worker-0/INFO] [KubeJS/]: Done in 104.3 ms
+[08:29:12] [modloading-worker-0/INFO] [Configuration/FileWatching]: Registered gtceu config for auto-sync function
+[08:29:12] [modloading-worker-0/INFO] [GregTechCEu/]: High-Tier is Enabled.
+[08:29:12] [modloading-worker-0/INFO] [ne.mi.co.ForgeMod/FORGEMOD]: Forge mod loading, version 47.4.0, for MC 1.20.1 with MCP 20230612.114412
+[08:29:12] [modloading-worker-0/INFO] [ne.mi.co.MinecraftForge/FORGE]: MinecraftForge v47.4.0 Initialized
+[08:29:13] [modloading-worker-0/INFO] [Rhino Script Remapper/]: Loading Rhino Minecraft remapper...
+[08:29:13] [modloading-worker-0/INFO] [de.la.mo.rh.mo.ut.RhinoProperties/]: Rhino properties loaded.
+[08:29:13] [modloading-worker-0/INFO] [Rhino Script Remapper/]: Loading mappings for 1.20.1
+[08:29:13] [modloading-worker-0/INFO] [Rhino Script Remapper/]: Done in 0.095 s
+[08:29:13] [modloading-worker-0/ERROR] [ne.mi.fm.lo.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/color/item/ItemColor for invalid dist DEDICATED_SERVER
+[Rhino] Failed to get declared methods for com.gregtechceu.gtceu.common.data.GTMaterialBlocks: java.lang.RuntimeException: Attempted to load class net/minecraft/client/color/item/ItemColor for invalid dist DEDICATED_SERVER
+[08:29:13] [modloading-worker-0/ERROR] [ne.mi.fm.lo.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/multiplayer/ClientLevel for invalid dist DEDICATED_SERVER
+[Rhino] Failed to get declared methods for com.gregtechceu.gtceu.common.data.GTItems: java.lang.RuntimeException: Attempted to load class net/minecraft/client/multiplayer/ClientLevel for invalid dist DEDICATED_SERVER
+[08:29:13] [modloading-worker-0/ERROR] [ne.mi.fm.lo.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/color/item/ItemColor for invalid dist DEDICATED_SERVER
+[Rhino] Failed to get declared methods for com.gregtechceu.gtceu.common.data.GTMaterialItems: java.lang.RuntimeException: Attempted to load class net/minecraft/client/color/item/ItemColor for invalid dist DEDICATED_SERVER
+[08:29:13] [modloading-worker-0/ERROR] [ne.mi.fm.lo.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/gui/GuiGraphics for invalid dist DEDICATED_SERVER
+[Rhino] Failed to get declared methods for com.lowdragmc.lowdraglib.gui.widget.DraggableScrollableWidgetGroup: java.lang.RuntimeException: Attempted to load class net/minecraft/client/gui/GuiGraphics for invalid dist DEDICATED_SERVER
+[08:29:14] [modloading-worker-0/ERROR] [ne.mi.fm.lo.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/gui/GuiGraphics for invalid dist DEDICATED_SERVER
+[Rhino] Failed to get declared methods for com.lowdragmc.lowdraglib.gui.widget.PhantomFluidWidget: java.lang.RuntimeException: Attempted to load class net/minecraft/client/gui/GuiGraphics for invalid dist DEDICATED_SERVER
+[08:29:14] [modloading-worker-0/ERROR] [ne.mi.fm.lo.RuntimeDistCleaner/DISTXFORM]: Attempted to load class com/lowdragmc/lowdraglib/client/scene/WorldSceneRenderer for invalid dist DEDICATED_SERVER
+[Rhino] Failed to get declared methods for com.lowdragmc.lowdraglib.gui.widget.SceneWidget: java.lang.RuntimeException: Attempted to load class com/lowdragmc/lowdraglib/client/scene/WorldSceneRenderer for invalid dist DEDICATED_SERVER
+[08:29:14] [modloading-worker-0/INFO] [KubeJS Startup/]: example.js#5: Hello, World! (Loaded startup scripts)
+[08:29:14] [modloading-worker-0/INFO] [KubeJS Startup/]: Loaded script startup_scripts:example.js in 0.079 s
+[08:29:14] [modloading-worker-0/INFO] [KubeJS Startup/]: Loaded 1/1 KubeJS startup scripts in 0.992 s with 0 errors and 0 warnings
+[08:29:14] [modloading-worker-0/INFO] [de.ar.ne.fo.NetworkManagerImpl/]: Registering C2S receiver with id kubejs:send_data_from_client
+[08:29:14] [modloading-worker-0/INFO] [de.ar.ne.fo.NetworkManagerImpl/]: Registering C2S receiver with id kubejs:first_click
+[08:29:14] [main/INFO] [GregTechCEu/]: GTCEu common proxy init!
+[08:29:14] [main/INFO] [GregTechCEu/]: Registering material registries
+[08:29:14] [main/INFO] [GregTechCEu/]: Registering GTCEu Materials
+[08:29:14] [main/INFO] [GregTechCEu/]: Registering addon Materials
+[08:29:14] [main/WARN] [GregTechCEu/]: FluidStorageKey{gtceu:liquid} already has an associated fluid for material gtceu:lava
+[08:29:14] [main/WARN] [GregTechCEu/]: FluidStorageKey{gtceu:liquid} already has an associated fluid for material gtceu:water
+[08:29:14] [main/WARN] [GregTechCEu/]: FluidStorageKey{gtceu:liquid} already has an associated fluid for material gtceu:milk
+[08:29:15] [main/INFO] [GregTechCEu/]: Registering KeyBinds
+[08:29:15] [main/WARN] [ne.mi.fm.DeferredWorkQueue/LOADING]: Mod 'gtceu' took 1.588 s to run a deferred task.
+[08:29:15] [main/INFO] [KubeJS/]: Skipping minecraft:sound_event registry
+[08:29:15] [main/INFO] [KubeJS/]: Skipping minecraft:fluid registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:block registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:attribute registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:mob_effect registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:particle_type registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:item registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:entity_type registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:sensor_type registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:memory_module_type registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:potion registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:game_event registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:enchantment registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:block_entity_type registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:painting_variant registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:stat_type registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:custom_stat registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:chunk_status registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:rule_test registry
+[08:29:16] [main/INFO] [KubeJS/]: Skipping minecraft:rule_block_entity_modifier registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:pos_rule_test registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:menu registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:recipe_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:recipe_serializer registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:position_source_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:command_argument_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:villager_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:villager_profession registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:point_of_interest_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:schedule registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:activity registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:loot_pool_entry_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:loot_function_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:loot_condition_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:loot_number_provider_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:loot_nbt_provider_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:loot_score_provider_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:float_provider_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:int_provider_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:height_provider_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:block_predicate_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/carver registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/feature registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/structure_processor registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/structure_placement registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/structure_piece registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/structure_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/placement_modifier_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/block_state_provider_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/foliage_placer_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/trunk_placer_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/root_placer_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/tree_decorator_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/feature_size_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/biome_source registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/chunk_generator registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/material_condition registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/material_rule registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/density_function_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/structure_pool_element registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:cat_variant registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:frog_variant registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:banner_pattern registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:instrument registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:decorated_pot_patterns registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:creative_mode_tab registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping forge:biome_modifier_serializers registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping forge:display_contexts registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping forge:entity_data_serializers registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping forge:fluid_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping forge:global_loot_modifier_serializers registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping forge:holder_set_type registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping forge:structure_modifier_serializers registry
+[08:29:17] [main/INFO] [KubeJS/]: Skipping minecraft:worldgen/biome registry
+[08:29:17] [modloading-worker-0/INFO] [KubeJS Startup/]: Capturing errors for startup scripts disabled
+[08:29:17] [Forge Version Check/INFO] [ne.mi.fm.VersionChecker/]: [configuration] Starting version check at https://raw.githubusercontent.com/Toma1O6/UpdateSchemas/master/configuration-forge.json
+[08:29:17] [Forge Version Check/WARN] [ne.mi.fm.VersionChecker/]: Failed to process update information
 java.net.ConnectException: null
-	at jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:900) ~[java.net.http:?]
-	at jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:133) ~[java.net.http:?]
-	at net.minecraftforge.fml.VersionChecker$1.openUrlString(VersionChecker.java:142) ~[fmlcore-1.20.1-47.4.0.jar%23185!/:?]
-	at net.minecraftforge.fml.VersionChecker$1.process(VersionChecker.java:180) ~[fmlcore-1.20.1-47.4.0.jar%23185!/:?]
-	at java.lang.Iterable.forEach(Iterable.java:75) ~[?:?]
-	at net.minecraftforge.fml.VersionChecker$1.run(VersionChecker.java:117) ~[fmlcore-1.20.1-47.4.0.jar%23185!/:?]
+at jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:900) ~[java.net.http:?] {}
+at jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:133) ~[java.net.http:?] {}
+at net.minecraftforge.fml.VersionChecker$1.openUrlString(VersionChecker.java:142) ~[fmlcore-1.20.1-47.4.0.jar%23185!/:?] {}
+at net.minecraftforge.fml.VersionChecker$1.process(VersionChecker.java:180) ~[fmlcore-1.20.1-47.4.0.jar%23185!/:?] {}
+at java.lang.Iterable.forEach(Iterable.java:75) ~[?:?] {re:mixin}
+at net.minecraftforge.fml.VersionChecker$1.run(VersionChecker.java:117) ~[fmlcore-1.20.1-47.4.0.jar%23185!/:?] {}
 Caused by: java.net.ConnectException
-	at jdk.internal.net.http.common.Utils.toConnectException(Utils.java:1107) ~[java.net.http:?]
-	at jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:203) ~[java.net.http:?]
-	at jdk.internal.net.http.PlainHttpConnection.checkRetryConnect(PlainHttpConnection.java:238) ~[java.net.http:?]
-	at jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$1(PlainHttpConnection.java:214) ~[java.net.http:?]
-	at java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934) ~[?:?]
-	at java.util.concurrent.CompletableFuture$UniHandle.tryFire(CompletableFuture.java:911) ~[?:?]
-	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[?:?]
-	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1773) ~[?:?]
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
-	at java.lang.Thread.run(Thread.java:840) ~[?:?]
-Caused by: java.nio.channels.ClosedChannelException
-	at sun.nio.ch.SocketChannelImpl.ensureOpen(SocketChannelImpl.java:195) ~[?:?]
-	at sun.nio.ch.SocketChannelImpl.beginConnect(SocketChannelImpl.java:760) ~[?:?]
-	at sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:848) ~[?:?]
-	at jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$0(PlainHttpConnection.java:187) ~[java.net.http:?]
-	at java.security.AccessController.doPrivileged(AccessController.java:569) ~[?:?]
-	at jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:189) ~[java.net.http:?]
-	at jdk.internal.net.http.PlainHttpConnection.checkRetryConnect(PlainHttpConnection.java:238) ~[java.net.http:?]
-	at jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$1(PlainHttpConnection.java:214) ~[java.net.http:?]
-	at java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934) ~[?:?]
-	at java.util.concurrent.CompletableFuture$UniHandle.tryFire(CompletableFuture.java:911) ~[?:?]
-	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[?:?]
-	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1773) ~[?:?]
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
-	at java.lang.Thread.run(Thread.java:840) ~[?:?]
-[22Oct2026 07:13:39.441] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
-[22Oct2026 07:13:39.471] [Forge Version Check/WARN] [net.minecraftforge.fml.VersionChecker/]: Failed to process update information
+at jdk.internal.net.http.common.Utils.toConnectException(Utils.java:1107) ~[java.net.http:?] {}
+at jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:203) ~[java.net.http:?] {}
+at jdk.internal.net.http.AsyncSSLConnection.connectAsync(AsyncSSLConnection.java:56) ~[java.net.http:?] {}
+at jdk.internal.net.http.Http2Connection.createAsync(Http2Connection.java:450) ~[java.net.http:?] {}
+at jdk.internal.net.http.Http2ClientImpl.getConnectionFor(Http2ClientImpl.java:133) ~[java.net.http:?] {}
+at jdk.internal.net.http.ExchangeImpl.get(ExchangeImpl.java:98) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.establishExchange(Exchange.java:374) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.responseAsyncImpl0(Exchange.java:567) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.responseAsyncImpl(Exchange.java:411) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.responseAsync(Exchange.java:403) ~[java.net.http:?] {}
+at jdk.internal.net.http.MultiExchange.responseAsyncImpl(MultiExchange.java:430) ~[java.net.http:?] {}
+at jdk.internal.net.http.MultiExchange.lambda$responseAsyncImpl$7(MultiExchange.java:471) ~[java.net.http:?] {}
+at java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934) ~[?:?] {re:mixin}
+at java.util.concurrent.CompletableFuture.uniHandleStage(CompletableFuture.java:950) ~[?:?] {re:mixin}
+at java.util.concurrent.CompletableFuture.handle(CompletableFuture.java:2340) ~[?:?] {re:mixin}
+at jdk.internal.net.http.MultiExchange.responseAsyncImpl(MultiExchange.java:461) ~[java.net.http:?] {}
+at jdk.internal.net.http.MultiExchange.lambda$responseAsync0$2(MultiExchange.java:350) ~[java.net.http:?] {}
+at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1150) ~[?:?] {}
+at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[?:?] {re:mixin}
+at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1773) ~[?:?] {}
+at jdk.internal.net.http.HttpClientImpl$DelegatingExecutor.execute(HttpClientImpl.java:174) ~[java.net.http:?] {}
+at java.util.concurrent.CompletableFuture.completeAsync(CompletableFuture.java:2673) ~[?:?] {re:mixin}
+at jdk.internal.net.http.MultiExchange.responseAsync(MultiExchange.java:303) ~[java.net.http:?] {}
+at jdk.internal.net.http.HttpClientImpl.sendAsync(HttpClientImpl.java:991) ~[java.net.http:?] {}
+at jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:878) ~[java.net.http:?] {}
+... 5 more
+Caused by: java.nio.channels.UnresolvedAddressException
+at sun.nio.ch.Net.checkAddress(Net.java:149) ~[?:?] {}
+at sun.nio.ch.Net.checkAddress(Net.java:157) ~[?:?] {}
+at sun.nio.ch.SocketChannelImpl.checkRemote(SocketChannelImpl.java:816) ~[?:?] {}
+at sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:839) ~[?:?] {}
+at jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$0(PlainHttpConnection.java:187) ~[java.net.http:?] {}
+at java.security.AccessController.doPrivileged(AccessController.java:569) ~[?:?] {}
+at jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:189) ~[java.net.http:?] {}
+at jdk.internal.net.http.AsyncSSLConnection.connectAsync(AsyncSSLConnection.java:56) ~[java.net.http:?] {}
+at jdk.internal.net.http.Http2Connection.createAsync(Http2Connection.java:450) ~[java.net.http:?] {}
+at jdk.internal.net.http.Http2ClientImpl.getConnectionFor(Http2ClientImpl.java:133) ~[java.net.http:?] {}
+at jdk.internal.net.http.ExchangeImpl.get(ExchangeImpl.java:98) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.establishExchange(Exchange.java:374) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.responseAsyncImpl0(Exchange.java:567) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.responseAsyncImpl(Exchange.java:411) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.responseAsync(Exchange.java:403) ~[java.net.http:?] {}
+at jdk.internal.net.http.MultiExchange.responseAsyncImpl(MultiExchange.java:430) ~[java.net.http:?] {}
+at jdk.internal.net.http.MultiExchange.lambda$responseAsyncImpl$7(MultiExchange.java:471) ~[java.net.http:?] {}
+at java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934) ~[?:?] {re:mixin}
+at java.util.concurrent.CompletableFuture.uniHandleStage(CompletableFuture.java:950) ~[?:?] {re:mixin}
+at java.util.concurrent.CompletableFuture.handle(CompletableFuture.java:2340) ~[?:?] {re:mixin}
+at jdk.internal.net.http.MultiExchange.responseAsyncImpl(MultiExchange.java:461) ~[java.net.http:?] {}
+at jdk.internal.net.http.MultiExchange.lambda$responseAsync0$2(MultiExchange.java:350) ~[java.net.http:?] {}
+at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1150) ~[?:?] {}
+at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[?:?] {re:mixin}
+at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1773) ~[?:?] {}
+at jdk.internal.net.http.HttpClientImpl$DelegatingExecutor.execute(HttpClientImpl.java:174) ~[java.net.http:?] {}
+at java.util.concurrent.CompletableFuture.completeAsync(CompletableFuture.java:2673) ~[?:?] {re:mixin}
+at jdk.internal.net.http.MultiExchange.responseAsync(MultiExchange.java:303) ~[java.net.http:?] {}
+at jdk.internal.net.http.HttpClientImpl.sendAsync(HttpClientImpl.java:991) ~[java.net.http:?] {}
+at jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:878) ~[java.net.http:?] {}
+... 5 more
+[08:29:17] [Forge Version Check/INFO] [ne.mi.fm.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[08:29:18] [main/INFO] [mojang/YggdrasilAuthenticationService]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[08:29:19] [main/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/workspace/.gradle-irg/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.0_mapped_official_1.20.1/forge-1.20.1-47.4.0_mapped_official_1.20.1.jar%23181!/assets/.mcassetsroot' uses unexpected schema
+[08:29:19] [main/WARN] [minecraft/VanillaPackResourcesBuilder]: Assets URL 'union:/workspace/.gradle-irg/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.0_mapped_official_1.20.1/forge-1.20.1-47.4.0_mapped_official_1.20.1.jar%23181!/data/.mcassetsroot' uses unexpected schema
+[08:29:22] [Forge Version Check/WARN] [ne.mi.fm.VersionChecker/]: Failed to process update information
 java.net.ConnectException: null
-	at jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:900) ~[java.net.http:?]
-	at jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:133) ~[java.net.http:?]
-	at net.minecraftforge.fml.VersionChecker$1.openUrlString(VersionChecker.java:142) ~[fmlcore-1.20.1-47.4.0.jar%23185!/:?]
-	at net.minecraftforge.fml.VersionChecker$1.process(VersionChecker.java:180) ~[fmlcore-1.20.1-47.4.0.jar%23185!/:?]
-	at java.lang.Iterable.forEach(Iterable.java:75) ~[?:?]
-	at net.minecraftforge.fml.VersionChecker$1.run(VersionChecker.java:117) ~[fmlcore-1.20.1-47.4.0.jar%23185!/:?]
+at jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:900) ~[java.net.http:?] {}
+at jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:133) ~[java.net.http:?] {}
+at net.minecraftforge.fml.VersionChecker$1.openUrlString(VersionChecker.java:142) ~[fmlcore-1.20.1-47.4.0.jar%23185!/:?] {}
+at net.minecraftforge.fml.VersionChecker$1.process(VersionChecker.java:180) ~[fmlcore-1.20.1-47.4.0.jar%23185!/:?] {}
+at java.lang.Iterable.forEach(Iterable.java:75) ~[?:?] {re:mixin}
+at net.minecraftforge.fml.VersionChecker$1.run(VersionChecker.java:117) ~[fmlcore-1.20.1-47.4.0.jar%23185!/:?] {}
 Caused by: java.net.ConnectException
-	at jdk.internal.net.http.common.Utils.toConnectException(Utils.java:1107) ~[java.net.http:?]
-	at jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:203) ~[java.net.http:?]
-	at jdk.internal.net.http.PlainHttpConnection.checkRetryConnect(PlainHttpConnection.java:238) ~[java.net.http:?]
-	at jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$1(PlainHttpConnection.java:214) ~[java.net.http:?]
-	at java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934) ~[?:?]
-	at java.util.concurrent.CompletableFuture$UniHandle.tryFire(CompletableFuture.java:911) ~[?:?]
-	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[?:?]
-	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1773) ~[?:?]
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
-	at java.lang.Thread.run(Thread.java:840) ~[?:?]
-Caused by: java.nio.channels.ClosedChannelException
-	at sun.nio.ch.SocketChannelImpl.ensureOpen(SocketChannelImpl.java:195) ~[?:?]
-	at sun.nio.ch.SocketChannelImpl.beginConnect(SocketChannelImpl.java:760) ~[?:?]
-	at sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:848) ~[?:?]
-	at jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$0(PlainHttpConnection.java:187) ~[java.net.http:?]
-	at java.security.AccessController.doPrivileged(AccessController.java:569) ~[?:?]
-	at jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:189) ~[java.net.http:?]
-	at jdk.internal.net.http.PlainHttpConnection.checkRetryConnect(PlainHttpConnection.java:238) ~[java.net.http:?]
-	at jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$1(PlainHttpConnection.java:214) ~[java.net.http:?]
-	at java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934) ~[?:?]
-	at java.util.concurrent.CompletableFuture$UniHandle.tryFire(CompletableFuture.java:911) ~[?:?]
-	at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[?:?]
-	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1773) ~[?:?]
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
-	at java.lang.Thread.run(Thread.java:840) ~[?:?]
-[22Oct2026 07:13:39.535] [main/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 63 recipes
-[22Oct2026 07:13:40.308] [main/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1307 advancements
-[22Oct2026 07:13:40.722] [main/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: [infiniteresourcegenerators]
-[22Oct2026 07:13:40.757] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Configuration file ./world/serverconfig/jei-server.toml is not correct. Correcting
-[22Oct2026 07:13:40.758] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key cheat mode was corrected from null to its default, SimpleCommentedConfig:{}.
-[22Oct2026 07:13:40.758] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key cheat mode.enableCheatModeForOp was corrected from null to its default, true.
-[22Oct2026 07:13:40.758] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key cheat mode.enableCheatModeForCreative was corrected from null to its default, true.
-[22Oct2026 07:13:40.758] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key cheat mode.enableCheatModeForGive was corrected from null to its default, false.
-[22Oct2026 07:13:40.759] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Configuration file ./world/serverconfig/forge-server.toml is not correct. Correcting
-[22Oct2026 07:13:40.759] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server was corrected from null to its default, SimpleCommentedConfig:{}.
-[22Oct2026 07:13:40.759] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.removeErroringBlockEntities was corrected from null to its default, false.
-[22Oct2026 07:13:40.759] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.removeErroringEntities was corrected from null to its default, false.
-[22Oct2026 07:13:40.759] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.fullBoundingBoxLadders was corrected from null to its default, false.
-[22Oct2026 07:13:40.759] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.zombieBaseSummonChance was corrected from null to its default, 0.1.
-[22Oct2026 07:13:40.759] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.zombieBabyChance was corrected from null to its default, 0.05.
-[22Oct2026 07:13:40.759] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.permissionHandler was corrected from null to its default, forge:default_handler.
-[22Oct2026 07:13:40.759] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.advertiseDedicatedServerToLan was corrected from null to its default, true.
-[22Oct2026 07:13:40.759] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.useItemWithDurationZero was corrected from null to its default, false.
-[22Oct2026 07:13:41.163] [Yggdrasil Key Fetcher/ERROR] [com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo/]: Failed to request yggdrasil public key
+at jdk.internal.net.http.common.Utils.toConnectException(Utils.java:1107) ~[java.net.http:?] {}
+at jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:203) ~[java.net.http:?] {}
+at jdk.internal.net.http.AsyncSSLConnection.connectAsync(AsyncSSLConnection.java:56) ~[java.net.http:?] {}
+at jdk.internal.net.http.Http2Connection.createAsync(Http2Connection.java:450) ~[java.net.http:?] {}
+at jdk.internal.net.http.Http2ClientImpl.getConnectionFor(Http2ClientImpl.java:133) ~[java.net.http:?] {}
+at jdk.internal.net.http.ExchangeImpl.get(ExchangeImpl.java:98) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.establishExchange(Exchange.java:374) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.responseAsyncImpl0(Exchange.java:567) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.responseAsyncImpl(Exchange.java:411) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.responseAsync(Exchange.java:403) ~[java.net.http:?] {}
+at jdk.internal.net.http.MultiExchange.responseAsyncImpl(MultiExchange.java:430) ~[java.net.http:?] {}
+at jdk.internal.net.http.MultiExchange.lambda$responseAsyncImpl$7(MultiExchange.java:471) ~[java.net.http:?] {}
+at java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934) ~[?:?] {re:mixin}
+at java.util.concurrent.CompletableFuture.uniHandleStage(CompletableFuture.java:950) ~[?:?] {re:mixin}
+at java.util.concurrent.CompletableFuture.handle(CompletableFuture.java:2340) ~[?:?] {re:mixin}
+at jdk.internal.net.http.MultiExchange.responseAsyncImpl(MultiExchange.java:461) ~[java.net.http:?] {}
+at jdk.internal.net.http.MultiExchange.lambda$responseAsync0$2(MultiExchange.java:350) ~[java.net.http:?] {}
+at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1150) ~[?:?] {}
+at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[?:?] {re:mixin}
+at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1773) ~[?:?] {}
+at jdk.internal.net.http.HttpClientImpl$DelegatingExecutor.execute(HttpClientImpl.java:174) ~[java.net.http:?] {}
+at java.util.concurrent.CompletableFuture.completeAsync(CompletableFuture.java:2673) ~[?:?] {re:mixin}
+at jdk.internal.net.http.MultiExchange.responseAsync(MultiExchange.java:303) ~[java.net.http:?] {}
+at jdk.internal.net.http.HttpClientImpl.sendAsync(HttpClientImpl.java:991) ~[java.net.http:?] {}
+at jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:878) ~[java.net.http:?] {}
+... 5 more
+Caused by: java.nio.channels.UnresolvedAddressException
+at sun.nio.ch.Net.checkAddress(Net.java:149) ~[?:?] {}
+at sun.nio.ch.Net.checkAddress(Net.java:157) ~[?:?] {}
+at sun.nio.ch.SocketChannelImpl.checkRemote(SocketChannelImpl.java:816) ~[?:?] {}
+at sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:839) ~[?:?] {}
+at jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$0(PlainHttpConnection.java:187) ~[java.net.http:?] {}
+at java.security.AccessController.doPrivileged(AccessController.java:569) ~[?:?] {}
+at jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:189) ~[java.net.http:?] {}
+at jdk.internal.net.http.AsyncSSLConnection.connectAsync(AsyncSSLConnection.java:56) ~[java.net.http:?] {}
+at jdk.internal.net.http.Http2Connection.createAsync(Http2Connection.java:450) ~[java.net.http:?] {}
+at jdk.internal.net.http.Http2ClientImpl.getConnectionFor(Http2ClientImpl.java:133) ~[java.net.http:?] {}
+at jdk.internal.net.http.ExchangeImpl.get(ExchangeImpl.java:98) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.establishExchange(Exchange.java:374) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.responseAsyncImpl0(Exchange.java:567) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.responseAsyncImpl(Exchange.java:411) ~[java.net.http:?] {}
+at jdk.internal.net.http.Exchange.responseAsync(Exchange.java:403) ~[java.net.http:?] {}
+at jdk.internal.net.http.MultiExchange.responseAsyncImpl(MultiExchange.java:430) ~[java.net.http:?] {}
+at jdk.internal.net.http.MultiExchange.lambda$responseAsyncImpl$7(MultiExchange.java:471) ~[java.net.http:?] {}
+at java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:934) ~[?:?] {re:mixin}
+at java.util.concurrent.CompletableFuture.uniHandleStage(CompletableFuture.java:950) ~[?:?] {re:mixin}
+at java.util.concurrent.CompletableFuture.handle(CompletableFuture.java:2340) ~[?:?] {re:mixin}
+at jdk.internal.net.http.MultiExchange.responseAsyncImpl(MultiExchange.java:461) ~[java.net.http:?] {}
+at jdk.internal.net.http.MultiExchange.lambda$responseAsync0$2(MultiExchange.java:350) ~[java.net.http:?] {}
+at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1150) ~[?:?] {}
+at java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510) ~[?:?] {re:mixin}
+at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1773) ~[?:?] {}
+at jdk.internal.net.http.HttpClientImpl$DelegatingExecutor.execute(HttpClientImpl.java:174) ~[java.net.http:?] {}
+at java.util.concurrent.CompletableFuture.completeAsync(CompletableFuture.java:2673) ~[?:?] {re:mixin}
+at jdk.internal.net.http.MultiExchange.responseAsync(MultiExchange.java:303) ~[java.net.http:?] {}
+at jdk.internal.net.http.HttpClientImpl.sendAsync(HttpClientImpl.java:991) ~[java.net.http:?] {}
+at jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:878) ~[java.net.http:?] {}
+... 5 more
+[08:29:24] [Yggdrasil Key Fetcher/ERROR] [mojang/YggdrasilServicesKeyInfo]: Failed to request yggdrasil public key
 com.mojang.authlib.exceptions.AuthenticationUnavailableException: Cannot contact authentication server
-	at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.makeRequest(YggdrasilAuthenticationService.java:119) ~[authlib-4.0.43.jar%23121!/:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.makeRequest(YggdrasilAuthenticationService.java:91) ~[authlib-4.0.43.jar%23121!/:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.fetch(YggdrasilServicesKeyInfo.java:94) ~[authlib-4.0.43.jar%23121!/:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.lambda$get$1(YggdrasilServicesKeyInfo.java:81) ~[authlib-4.0.43.jar%23121!/:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[?:?]
-	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) ~[?:?]
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[?:?]
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
-	at java.lang.Thread.run(Thread.java:840) ~[?:?]
-Caused by: java.net.ConnectException: Connection refused
-	at sun.nio.ch.Net.pollConnect(Native Method) ~[?:?]
-	at sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[?:?]
-	at sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:554) ~[?:?]
-	at sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602) ~[?:?]
-	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[?:?]
-	at java.net.Socket.connect(Socket.java:633) ~[?:?]
-	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:304) ~[?:?]
-	at sun.net.NetworkClient.doConnect(NetworkClient.java:178) ~[?:?]
-	at sun.net.www.http.HttpClient.openServer(HttpClient.java:533) ~[?:?]
-	at sun.net.www.http.HttpClient.openServer(HttpClient.java:638) ~[?:?]
-	at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:266) ~[?:?]
-	at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:380) ~[?:?]
-	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:193) ~[?:?]
-	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1307) ~[?:?]
-	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1148) ~[?:?]
-	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:179) ~[?:?]
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1717) ~[?:?]
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1641) ~[?:?]
-	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:224) ~[?:?]
-	at com.mojang.authlib.HttpAuthenticationService.performGetRequest(HttpAuthenticationService.java:140) ~[authlib-4.0.43.jar%23121!/:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.makeRequest(YggdrasilAuthenticationService.java:96) ~[authlib-4.0.43.jar%23121!/:?]
-	... 9 more
-[22Oct2026 07:13:43.992] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
-[22Oct2026 07:13:43.992] [Server thread/INFO] [KubeJS Server/]: Capturing errors for server scripts disabled
-[22Oct2026 07:13:43.993] [Server thread/INFO] [KubeJS Server/]: Server resource reload complete!
-[22Oct2026 07:13:44.255] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[22Oct2026 07:13:44.510] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[22Oct2026 07:13:44.999] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[22Oct2026 07:13:45.499] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 1%
-[22Oct2026 07:13:46.006] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 2%
-[22Oct2026 07:13:46.502] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 4%
-[22Oct2026 07:13:47.003] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 6%
-[22Oct2026 07:13:47.494] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 9%
-[22Oct2026 07:13:47.993] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 13%
-[22Oct2026 07:13:48.499] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 16%
-[22Oct2026 07:13:48.994] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 18%
-[22Oct2026 07:13:49.494] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 21%
-[22Oct2026 07:13:49.994] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 24%
-[22Oct2026 07:13:50.494] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 29%
-[22Oct2026 07:13:51.000] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 34%
-[22Oct2026 07:13:51.545] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 35%
-[22Oct2026 07:13:51.994] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 38%
-[22Oct2026 07:13:52.492] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 43%
-[22Oct2026 07:13:52.996] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 47%
-[22Oct2026 07:13:53.495] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 52%
-[22Oct2026 07:13:53.993] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 57%
-[22Oct2026 07:13:54.494] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 61%
-[22Oct2026 07:13:55.003] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 67%
-[22Oct2026 07:13:55.494] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 71%
-[22Oct2026 07:13:55.994] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 73%
-[22Oct2026 07:13:56.499] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 78%
-[22Oct2026 07:13:56.995] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 82%
-[22Oct2026 07:13:57.498] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 85%
-[22Oct2026 07:13:58.025] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 86%
-[22Oct2026 07:13:58.511] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 88%
-[22Oct2026 07:13:58.995] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 93%
-[22Oct2026 07:13:59.505] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 96%
-[22Oct2026 07:13:59.907] [Server thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 15915 ms
-[22Oct2026 07:13:59.907] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: Started game test server
-[22Oct2026 07:13:59.917] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
-[22Oct2026 07:13:59.945] [Server thread/INFO] [dev.frostii.irg.InfiniteResourceGenerators/]: Resource catalog: 1639 naturally available ores, 3153 locked material forms
-[22Oct2026 07:14:00.220] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestBatchRunner/]: Running test batch 'defaultBatch:1' (12 tests)...
-[22Oct2026 07:14:00.269] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: 12 tests are now running!
-[22Oct2026 07:14:01.083] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [+____+_+_+_+]
-[22Oct2026 07:14:01.698] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [+____+_+_+_+]
-[22Oct2026 07:14:01.784] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [+++_++++++++]
-[22Oct2026 07:14:02.027] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [+++_++++++++]
-[22Oct2026 07:14:02.155] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [+++_++++++++]
-[22Oct2026 07:14:02.217] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [+++_++++++++]
-[22Oct2026 07:14:02.274] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [+++_++++++++]
-[22Oct2026 07:14:02.337] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [+++_++++++++]
-[22Oct2026 07:14:02.368] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [+++_++++++++]
-[22Oct2026 07:14:02.427] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [+++_++++++++]
-[22Oct2026 07:14:02.438] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [++++++++++++]
-[22Oct2026 07:14:02.438] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: ========= 12 GAME TESTS COMPLETE ======================
-[22Oct2026 07:14:02.438] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: All 12 required tests passed :)
-[22Oct2026 07:14:02.438] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: ====================================================
-[22Oct2026 07:14:02.439] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
-[22Oct2026 07:14:02.439] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
-[22Oct2026 07:14:02.439] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
-[22Oct2026 07:14:03.609] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
-[22Oct2026 07:14:04.710] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
-[22Oct2026 07:14:04.710] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
-[22Oct2026 07:14:04.763] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (world): All chunks are saved
-[22Oct2026 07:14:04.764] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
-[22Oct2026 07:14:04.764] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
-[22Oct2026 07:14:04.764] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
-[22Oct2026 07:14:05.112] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: Game test server shutting down
+at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.makeRequest(YggdrasilAuthenticationService.java:119) ~[authlib-4.0.43.jar%23121!/:?] {}
+at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.makeRequest(YggdrasilAuthenticationService.java:91) ~[authlib-4.0.43.jar%23121!/:?] {}
+at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.fetch(YggdrasilServicesKeyInfo.java:94) ~[authlib-4.0.43.jar%23121!/:?] {}
+at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.lambda$get$1(YggdrasilServicesKeyInfo.java:81) ~[authlib-4.0.43.jar%23121!/:?] {}
+at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[?:?] {}
+at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) ~[?:?] {}
+at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[?:?] {}
+at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?] {}
+at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?] {}
+at java.lang.Thread.run(Thread.java:840) ~[?:?] {re:mixin}
+Caused by: java.net.UnknownHostException: api.minecraftservices.com
+at sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:572) ~[?:?] {}
+at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[?:?] {}
+at java.net.Socket.connect(Socket.java:633) ~[?:?] {}
+at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:304) ~[?:?] {}
+at sun.net.NetworkClient.doConnect(NetworkClient.java:178) ~[?:?] {}
+at sun.net.www.http.HttpClient.openServer(HttpClient.java:533) ~[?:?] {}
+at sun.net.www.http.HttpClient.openServer(HttpClient.java:638) ~[?:?] {}
+at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:266) ~[?:?] {}
+at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:380) ~[?:?] {}
+at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:193) ~[?:?] {}
+at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1307) ~[?:?] {}
+at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1148) ~[?:?] {}
+at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:179) ~[?:?] {}
+at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1717) ~[?:?] {}
+at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1641) ~[?:?] {}
+at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:224) ~[?:?] {}
+at com.mojang.authlib.HttpAuthenticationService.performGetRequest(HttpAuthenticationService.java:140) ~[authlib-4.0.43.jar%23121!/:?] {}
+at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.makeRequest(YggdrasilAuthenticationService.java:96) ~[authlib-4.0.43.jar%23121!/:?] {}
+... 9 more
+[08:29:26] [main/INFO] [GregTechCEu/]: Registering dungeon loot...
+[08:29:26] [main/INFO] [GregTechCEu/]: GregTech Data loading took 7632ms
+[08:29:26] [main/INFO] [minecraft/MinecraftServer]: Found new data pack gtceu:dynamic_data, loading it automatically
+[08:29:26] [main/INFO] [KubeJS/]: Generated SERVER_DATA data (1 files)
+[08:29:26] [main/INFO] [KubeJS Server/]: Capturing errors for server scripts enabled
+[08:29:26] [main/ERROR] [ne.mi.fm.lo.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/color/item/ItemColor for invalid dist DEDICATED_SERVER
+[08:29:26] [main/ERROR] [ne.mi.fm.lo.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/multiplayer/ClientLevel for invalid dist DEDICATED_SERVER
+[08:29:26] [main/ERROR] [ne.mi.fm.lo.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/color/item/ItemColor for invalid dist DEDICATED_SERVER
+[Rhino] Failed to get declared methods for com.gregtechceu.gtceu.common.data.GTMaterialBlocks: java.lang.RuntimeException: Attempted to load class net/minecraft/client/color/item/ItemColor for invalid dist DEDICATED_SERVER
+[Rhino] Failed to get declared methods for com.gregtechceu.gtceu.common.data.GTItems: java.lang.RuntimeException: Attempted to load class net/minecraft/client/multiplayer/ClientLevel for invalid dist DEDICATED_SERVER
+[Rhino] Failed to get declared methods for com.gregtechceu.gtceu.common.data.GTMaterialItems: java.lang.RuntimeException: Attempted to load class net/minecraft/client/color/item/ItemColor for invalid dist DEDICATED_SERVER
+[08:29:26] [main/ERROR] [ne.mi.fm.lo.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/gui/GuiGraphics for invalid dist DEDICATED_SERVER
+[Rhino] Failed to get declared methods for com.lowdragmc.lowdraglib.gui.widget.DraggableScrollableWidgetGroup: java.lang.RuntimeException: Attempted to load class net/minecraft/client/gui/GuiGraphics for invalid dist DEDICATED_SERVER
+[08:29:26] [main/ERROR] [ne.mi.fm.lo.RuntimeDistCleaner/DISTXFORM]: Attempted to load class net/minecraft/client/gui/GuiGraphics for invalid dist DEDICATED_SERVER
+[Rhino] Failed to get declared methods for com.lowdragmc.lowdraglib.gui.widget.PhantomFluidWidget: java.lang.RuntimeException: Attempted to load class net/minecraft/client/gui/GuiGraphics for invalid dist DEDICATED_SERVER
+[08:29:26] [main/ERROR] [ne.mi.fm.lo.RuntimeDistCleaner/DISTXFORM]: Attempted to load class com/lowdragmc/lowdraglib/client/scene/WorldSceneRenderer for invalid dist DEDICATED_SERVER
+[Rhino] Failed to get declared methods for com.lowdragmc.lowdraglib.gui.widget.SceneWidget: java.lang.RuntimeException: Attempted to load class com/lowdragmc/lowdraglib/client/scene/WorldSceneRenderer for invalid dist DEDICATED_SERVER
+[08:29:26] [main/INFO] [KubeJS Server/]: example.js#5: Hello, World! (Loaded server scripts)
+[08:29:26] [main/INFO] [KubeJS Server/]: Loaded script server_scripts:example.js in 0.0 s
+[08:29:26] [main/INFO] [KubeJS Server/]: Loaded 1/1 KubeJS server scripts in 0.032 s with 0 errors and 0 warnings
+[08:29:26] [main/INFO] [KubeJS Server/]: Scripts loaded
+[08:29:32] [main/INFO] [minecraft/RecipeManager]: Loaded 63 recipes
+[08:29:33] [main/INFO] [minecraft/AdvancementList]: Loaded 1307 advancements
+[08:29:34] [main/INFO] [ne.mi.ga.ForgeGameTestHooks/]: Enabled Gametest Namespaces: [infiniteresourcegenerators]
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Configuration file ./world/serverconfig/jei-server.toml is not correct. Correcting
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key cheat mode was corrected from null to its default, SimpleCommentedConfig:{}.
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key cheat mode.enableCheatModeForOp was corrected from null to its default, true.
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key cheat mode.enableCheatModeForCreative was corrected from null to its default, true.
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key cheat mode.enableCheatModeForGive was corrected from null to its default, false.
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Configuration file ./world/serverconfig/forge-server.toml is not correct. Correcting
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server was corrected from null to its default, SimpleCommentedConfig:{}.
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.removeErroringBlockEntities was corrected from null to its default, false.
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.removeErroringEntities was corrected from null to its default, false.
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.fullBoundingBoxLadders was corrected from null to its default, false.
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.zombieBaseSummonChance was corrected from null to its default, 0.1.
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.zombieBabyChance was corrected from null to its default, 0.05.
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.permissionHandler was corrected from null to its default, forge:default_handler.
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.advertiseDedicatedServerToLan was corrected from null to its default, true.
+[08:29:35] [Server thread/WARN] [ne.mi.co.ForgeConfigSpec/CORE]: Incorrect key server.useItemWithDurationZero was corrected from null to its default, false.
+[08:29:43] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing start region for dimension minecraft:overworld
+[08:29:43] [Server thread/INFO] [KubeJS Server/]: Capturing errors for server scripts disabled
+[08:29:43] [Server thread/INFO] [KubeJS Server/]: Server resource reload complete!
+[08:29:43] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 0%
+[08:29:43] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 0%
+[08:29:44] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 0%
+[08:29:45] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 0%
+[08:29:45] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 0%
+[08:29:45] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 0%
+[08:29:46] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 0%
+[08:29:46] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 0%
+[08:29:47] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 1%
+[08:29:47] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 1%
+[08:29:48] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 1%
+[08:29:48] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 2%
+[08:29:49] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 2%
+[08:29:49] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 2%
+[08:29:50] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 3%
+[08:29:50] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 3%
+[08:29:51] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 4%
+[08:29:51] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 5%
+[08:29:52] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 5%
+[08:29:52] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 6%
+[08:29:53] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 6%
+[08:29:53] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 7%
+[08:29:54] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 8%
+[08:29:54] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 9%
+[08:29:55] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 10%
+[08:29:55] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 10%
+[08:29:56] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 11%
+[08:29:56] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 11%
+[08:29:57] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 11%
+[08:29:57] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 12%
+[08:29:58] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 14%
+[08:29:58] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 15%
+[08:29:59] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 16%
+[08:29:59] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 17%
+[08:30:00] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 18%
+[08:30:00] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 19%
+[08:30:01] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 20%
+[08:30:01] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 22%
+[08:30:02] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 22%
+[08:30:02] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 23%
+[08:30:03] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 25%
+[08:30:03] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 25%
+[08:30:04] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 27%
+[08:30:04] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 27%
+[08:30:05] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 28%
+[08:30:05] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 30%
+[08:30:06] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 31%
+[08:30:06] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 32%
+[08:30:07] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 34%
+[08:30:07] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 35%
+[08:30:08] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 35%
+[08:30:08] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 36%
+[08:30:09] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 37%
+[08:30:09] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 38%
+[08:30:10] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 40%
+[08:30:10] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 42%
+[08:30:11] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 43%
+[08:30:11] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 44%
+[08:30:12] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 45%
+[08:30:12] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 46%
+[08:30:13] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 48%
+[08:30:13] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 49%
+[08:30:14] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 50%
+[08:30:14] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 52%
+[08:30:15] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 53%
+[08:30:15] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 54%
+[08:30:16] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 55%
+[08:30:16] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 56%
+[08:30:17] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 56%
+[08:30:17] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 57%
+[08:30:18] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 58%
+[08:30:18] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 59%
+[08:30:19] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 60%
+[08:30:19] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 61%
+[08:30:20] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 62%
+[08:30:20] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 63%
+[08:30:21] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 64%
+[08:30:21] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 66%
+[08:30:22] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 68%
+[08:30:22] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 68%
+[08:30:23] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 70%
+[08:30:23] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 70%
+[08:30:24] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 71%
+[08:30:24] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 72%
+[08:30:25] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 73%
+[08:30:25] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 75%
+[08:30:26] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 76%
+[08:30:26] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 77%
+[08:30:27] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 78%
+[08:30:27] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 80%
+[08:30:28] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 81%
+[08:30:29] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 83%
+[08:30:29] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 83%
+[08:30:29] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 84%
+[08:30:30] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 85%
+[08:30:30] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 86%
+[08:30:31] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 87%
+[08:30:31] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 88%
+[08:30:32] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 89%
+[08:30:32] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 90%
+[08:30:33] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 92%
+[08:30:33] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 93%
+[08:30:34] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 94%
+[08:30:34] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 95%
+[08:30:35] [Worker-Main-1/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 96%
+[08:30:35] [Worker-Main-7/INFO] [minecraft/LoggerChunkProgressListener]: Preparing spawn area: 98%
+[08:30:35] [Server thread/INFO] [minecraft/LoggerChunkProgressListener]: Time elapsed: 52890 ms
+[08:30:35] [Server thread/INFO] [minecraft/GameTestServer]: Started game test server
+[08:30:35] [Server thread/INFO] [ne.mi.se.pe.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
+[08:30:36] [Server thread/INFO] [de.fr.ir.InfiniteResourceGenerators/]: Resource catalog: 1639 naturally available ores, 3153 locked material forms
+[08:30:51] [Server thread/INFO] [minecraft/GameTestBatchRunner]: Running test batch 'defaultBatch:1' (22 tests)...
+[08:30:52] [Server thread/INFO] [minecraft/GameTestServer]: 22 tests are now running!
+[08:30:52] [Server thread/WARN] [minecraft/MinecraftServer]: Can't keep up! Is the server overloaded? Running 15993ms or 319 ticks behind
+[08:30:53] [Server thread/INFO] [minecraft/GameTestServer]: [+__+_++_++++_++_++_+_+]
+[08:30:54] [Server thread/INFO] [minecraft/GameTestServer]: [+__+_++_+++++++_++_+_+]
+[08:30:54] [Server thread/INFO] [minecraft/GameTestServer]: [++_+_+++++++++++++++++]
+[08:30:56] [Server thread/INFO] [minecraft/GameTestServer]: [++++_+++++++++++++++++]
+[08:30:56] [Server thread/INFO] [minecraft/GameTestServer]: [++++_+++++++++++++++++]
+[08:30:57] [Server thread/INFO] [minecraft/GameTestServer]: [++++_+++++++++++++++++]
+[08:30:57] [Server thread/INFO] [minecraft/GameTestServer]: [++++_+++++++++++++++++]
+[08:30:57] [Server thread/INFO] [minecraft/GameTestServer]: [++++_+++++++++++++++++]
+[08:30:57] [Server thread/INFO] [minecraft/GameTestServer]: [++++_+++++++++++++++++]
+[08:30:57] [Server thread/INFO] [minecraft/GameTestServer]: [++++_+++++++++++++++++]
+[08:30:57] [Server thread/INFO] [minecraft/GameTestServer]: [++++++++++++++++++++++]
+[08:30:57] [Server thread/INFO] [minecraft/GameTestServer]: ========= 22 GAME TESTS COMPLETE ======================
+[08:30:57] [Server thread/INFO] [minecraft/GameTestServer]: All 22 required tests passed :)
+[08:30:57] [Server thread/INFO] [minecraft/GameTestServer]: ====================================================
+[08:30:57] [Server thread/INFO] [minecraft/MinecraftServer]: Stopping server
+[08:30:57] [Server thread/INFO] [minecraft/MinecraftServer]: Saving players
+[08:30:57] [Server thread/INFO] [minecraft/MinecraftServer]: Saving worlds
+[08:31:15] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[08:31:17] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[08:31:17] [Server thread/INFO] [minecraft/MinecraftServer]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[08:31:17] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[08:31:17] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[08:31:17] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[08:31:17] [Server thread/INFO] [minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved
+[08:31:18] [Server thread/INFO] [minecraft/GameTestServer]: Game test server shutting down
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+For more on this, please refer to https://docs.gradle.org/8.8/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+BUILD SUCCESSFUL in 2m 35s
+12 actionable tasks: 6 executed, 6 up-to-date

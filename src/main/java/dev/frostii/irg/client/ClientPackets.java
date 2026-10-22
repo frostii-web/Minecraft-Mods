@@ -15,12 +15,8 @@ public final class ClientPackets {
         menu.catalogReady = message.complete();
         menu.catalogVersion++;
     }
-    public static void selection(ModNetwork.SelectionState message) {
+    public static void configuration(ModNetwork.ConfigurationState message) {
         var player = Minecraft.getInstance().player;
-        if (player != null && player.containerMenu instanceof GeneratorMenu menu && menu.containerId == message.menuId()) {
-            menu.clientSelections.clear();
-            menu.clientSelections.addAll(message.items());
-            menu.clientMode = message.mode();
-        }
+        if (player != null && player.containerMenu instanceof GeneratorMenu menu && menu.containerId == message.menuId()) menu.generator.readConfiguration(message.tag());
     }
 }

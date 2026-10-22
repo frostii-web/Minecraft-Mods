@@ -1,96 +1,81 @@
 package dev.frostii.irg.network;
 
 import dev.frostii.irg.InfiniteResourceGenerators;
-import dev.frostii.irg.block.GeneratorBlockEntity;
+import dev.frostii.irg.block.GeneratorBlockEntity.*;
 import dev.frostii.irg.client.ClientPackets;
 import dev.frostii.irg.menu.GeneratorMenu;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.network.*;
 import net.minecraftforge.network.simple.SimpleChannel;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public final class ModNetwork {
-    private static final String VERSION = "2";
+    private static final String VERSION = "3";
     private static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(new ResourceLocation(InfiniteResourceGenerators.MOD_ID, "main"), () -> VERSION, VERSION::equals, VERSION::equals);
     private ModNetwork() { }
-
-    public record SelectResource(int menuId, ResourceLocation item) { }
+    public record SetGeneration(int menuId, int slot, ResourceLocation item, boolean enabled) { }
+    public record SetRoute(int menuId, Direction side, OutputMode mode, FilterMode filter, List<ResourceLocation> items) { }
     public record RequestCatalog(int menuId) { }
-    public record SetMode(int menuId, GeneratorBlockEntity.Mode mode) { }
     public record CatalogEntry(ResourceLocation item, boolean available, boolean immediate) { }
     public record CatalogChunk(int menuId, boolean reset, boolean complete, List<CatalogEntry> entries) { }
-    public record SelectionState(int menuId, List<ResourceLocation> items, GeneratorBlockEntity.Mode mode) { }
+    public record ConfigurationState(int menuId, CompoundTag tag) { }
 
+    private static GeneratorMenu valid(ServerPlayer player, int id) {
+        return player != null && player.containerMenu instanceof GeneratorMenu menu && menu.containerId == id && menu.stillValid(player) ? menu : null;
+    }
     public static void register() {
-        CHANNEL.messageBuilder(SelectResource.class, 0, NetworkDirection.PLAY_TO_SERVER)
-                .encoder((message, buffer) -> { buffer.writeVarInt(message.menuId); buffer.writeResourceLocation(message.item); })
-                .decoder(buffer -> new SelectResource(buffer.readVarInt(), buffer.readResourceLocation()))
-                .consumerMainThread((message, context) -> {
-                    ServerPlayer player = context.get().getSender();
-                    if (player != null && player.containerMenu instanceof GeneratorMenu menu
-                            && menu.containerId == message.menuId && menu.stillValid(player)
-                            && !menu.generator.toggleSelection(message.item)) {
-                        player.displayClientMessage(Component.translatable("gui.infiniteresourcegenerators.rejected"), true);
+        CHANNEL.messageBuilder(SetGeneration.class, 0, NetworkDirection.PLAY_TO_SERVER)
+                .encoder((m, b) -> { b.writeVarInt(m.menuId); b.writeVarInt(m.slot); b.writeBoolean(m.item != null); if (m.item != null) b.writeResourceLocation(m.item); b.writeBoolean(m.enabled); })
+                .decoder(b -> new SetGeneration(b.readVarInt(), b.readVarInt(), b.readBoolean() ? b.readResourceLocation() : null, b.readBoolean()))
+                .consumerMainThread((m, c) -> {
+                    ServerPlayer player = c.get().getSender(); GeneratorMenu menu = valid(player, m.menuId);
+                    if (menu != null) {
+                        if (!menu.generator.configureSlot(m.slot, m.item, m.enabled)) player.displayClientMessage(Component.translatable("gui.infiniteresourcegenerators.rejected"), true);
+                        menu.syncState(player);
                     }
                 }).add();
         CHANNEL.messageBuilder(RequestCatalog.class, 1, NetworkDirection.PLAY_TO_SERVER)
-                .encoder((message, buffer) -> buffer.writeVarInt(message.menuId))
-                .decoder(buffer -> new RequestCatalog(buffer.readVarInt()))
-                .consumerMainThread((message, context) -> {
-                    ServerPlayer player = context.get().getSender();
-                    if (player != null && player.containerMenu instanceof GeneratorMenu menu && menu.containerId == message.menuId && menu.stillValid(player)) menu.requestCatalog(player);
-                }).add();
+                .encoder((m,b) -> b.writeVarInt(m.menuId)).decoder(b -> new RequestCatalog(b.readVarInt()))
+                .consumerMainThread((m,c) -> { ServerPlayer player = c.get().getSender(); GeneratorMenu menu = valid(player,m.menuId); if (menu != null) menu.requestCatalog(player); }).add();
         CHANNEL.messageBuilder(CatalogChunk.class, 2, NetworkDirection.PLAY_TO_CLIENT)
                 .encoder(ModNetwork::writeCatalog).decoder(ModNetwork::readCatalog)
-                .consumerMainThread((message, context) -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientPackets.catalog(message))).add();
-        CHANNEL.messageBuilder(SelectionState.class, 3, NetworkDirection.PLAY_TO_CLIENT)
-                .encoder((message, buffer) -> {
-                    buffer.writeVarInt(message.menuId);
-                    buffer.writeCollection(message.items, FriendlyByteBuf::writeResourceLocation);
-                    buffer.writeEnum(message.mode);
-                }).decoder(buffer -> new SelectionState(buffer.readVarInt(), buffer.readList(FriendlyByteBuf::readResourceLocation), buffer.readEnum(GeneratorBlockEntity.Mode.class)))
-                .consumerMainThread((message, context) -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientPackets.selection(message))).add();
-        CHANNEL.messageBuilder(SetMode.class, 4, NetworkDirection.PLAY_TO_SERVER)
-                .encoder((message, buffer) -> { buffer.writeVarInt(message.menuId); buffer.writeEnum(message.mode); })
-                .decoder(buffer -> new SetMode(buffer.readVarInt(), buffer.readEnum(GeneratorBlockEntity.Mode.class)))
-                .consumerMainThread((message, context) -> {
-                    ServerPlayer player = context.get().getSender();
-                    if (player != null && player.containerMenu instanceof GeneratorMenu menu && menu.containerId == message.menuId && menu.stillValid(player)) menu.generator.setMode(message.mode);
+                .consumerMainThread((m,c) -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientPackets.catalog(m))).add();
+        CHANNEL.messageBuilder(ConfigurationState.class, 3, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder((m,b) -> { b.writeVarInt(m.menuId); b.writeNbt(m.tag); })
+                .decoder(b -> new ConfigurationState(b.readVarInt(), Objects.requireNonNull(b.readNbt())))
+                .consumerMainThread((m,c) -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientPackets.configuration(m))).add();
+        CHANNEL.messageBuilder(SetRoute.class, 4, NetworkDirection.PLAY_TO_SERVER)
+                .encoder((m,b) -> { b.writeVarInt(m.menuId); b.writeEnum(m.side); b.writeEnum(m.mode); b.writeEnum(m.filter); b.writeCollection(m.items,FriendlyByteBuf::writeResourceLocation); })
+                .decoder(b -> new SetRoute(b.readVarInt(), b.readEnum(Direction.class), b.readEnum(OutputMode.class), b.readEnum(FilterMode.class), readIds(b,6)))
+                .consumerMainThread((m,c) -> {
+                    ServerPlayer player = c.get().getSender(); GeneratorMenu menu = valid(player,m.menuId);
+                    if (menu != null) { menu.generator.configureRoute(m.side,m.mode,m.filter,m.items); menu.syncState(player); }
                 }).add();
     }
-
-    public static void select(int menuId, ResourceLocation item) { CHANNEL.sendToServer(new SelectResource(menuId, item)); }
-    public static void setMode(int menuId, GeneratorBlockEntity.Mode mode) { CHANNEL.sendToServer(new SetMode(menuId, mode)); }
-    public static void requestCatalog(int menuId) { CHANNEL.sendToServer(new RequestCatalog(menuId)); }
-    public static void send(ServerPlayer player, Object packet) { CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), packet); }
-
-    private static void writeCatalog(CatalogChunk chunk, FriendlyByteBuf buffer) {
-        buffer.writeVarInt(chunk.menuId);
-        buffer.writeBoolean(chunk.reset);
-        buffer.writeBoolean(chunk.complete);
-        buffer.writeVarInt(chunk.entries.size());
-        for (CatalogEntry entry : chunk.entries) {
-            buffer.writeResourceLocation(entry.item);
-            buffer.writeBoolean(entry.available);
-            buffer.writeBoolean(entry.immediate);
-        }
+    private static List<ResourceLocation> readIds(FriendlyByteBuf b, int limit) {
+        int count = b.readVarInt(); if (count < 0 || count > limit) throw new IllegalArgumentException("Too many filter resources");
+        List<ResourceLocation> result = new ArrayList<>(count); for (int i=0;i<count;i++) result.add(b.readResourceLocation()); return result;
     }
-    private static CatalogChunk readCatalog(FriendlyByteBuf buffer) {
-        int menuId = buffer.readVarInt();
-        boolean reset = buffer.readBoolean();
-        boolean complete = buffer.readBoolean();
-        int count = buffer.readVarInt();
-        if (count < 0 || count > 256) throw new IllegalArgumentException("Invalid resource catalog chunk size");
-        List<CatalogEntry> entries = new ArrayList<>(count);
-        for (int i = 0; i < count; i++) entries.add(new CatalogEntry(buffer.readResourceLocation(), buffer.readBoolean(), buffer.readBoolean()));
-        return new CatalogChunk(menuId, reset, complete, entries);
+    public static void generation(int menuId,int slot,ResourceLocation id,boolean enabled) { CHANNEL.sendToServer(new SetGeneration(menuId,slot,id,enabled)); }
+    public static void route(int menuId,Direction side,OutputMode mode,FilterMode filter,Collection<ResourceLocation> items) { CHANNEL.sendToServer(new SetRoute(menuId,side,mode,filter,List.copyOf(items))); }
+    public static void requestCatalog(int menuId) { CHANNEL.sendToServer(new RequestCatalog(menuId)); }
+    public static void send(ServerPlayer player,Object packet) { CHANNEL.send(PacketDistributor.PLAYER.with(() -> player),packet); }
+    private static void writeCatalog(CatalogChunk c,FriendlyByteBuf b) {
+        b.writeVarInt(c.menuId); b.writeBoolean(c.reset); b.writeBoolean(c.complete); b.writeVarInt(c.entries.size());
+        for (CatalogEntry e:c.entries) { b.writeResourceLocation(e.item); b.writeBoolean(e.available); b.writeBoolean(e.immediate); }
+    }
+    private static CatalogChunk readCatalog(FriendlyByteBuf b) {
+        int id=b.readVarInt(); boolean reset=b.readBoolean(),complete=b.readBoolean(); int count=b.readVarInt();
+        if(count<0||count>256) throw new IllegalArgumentException("Invalid catalog chunk size");
+        List<CatalogEntry> result=new ArrayList<>(count);
+        for(int i=0;i<count;i++) result.add(new CatalogEntry(b.readResourceLocation(),b.readBoolean(),b.readBoolean()));
+        return new CatalogChunk(id,reset,complete,result);
     }
 }
