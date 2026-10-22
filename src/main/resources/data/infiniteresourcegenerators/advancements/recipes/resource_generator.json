@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/iron"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_iron"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "infiniteresourcegenerators:resource_generator"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "infiniteresourcegenerators:block/generator_side",
+    "top": "infiniteresourcegenerators:block/generator_top",
+    "bottom": "infiniteresourcegenerators:block/generator_bottom"
+  }
+}

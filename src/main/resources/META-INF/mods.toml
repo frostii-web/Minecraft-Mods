@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+[[mods]]
+modId="infiniteresourcegenerators"
+version="1.0.0"
+displayName="Infinite Resource Generators"
+authors="frostii"
+description='''
+No-fuel resource generation with world-shared, per-item progression.
+Naturally generated ores are immediately available; ordinary material forms unlock through production or acquisition.
+'''
+[[dependencies.infiniteresourcegenerators]]
+modId="forge"
+mandatory=true
+versionRange="[47.3.0,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.infiniteresourcegenerators]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.20.2)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.infiniteresourcegenerators]]
+modId="gtceu"
+mandatory=true
+versionRange="[7.5.1,7.5.2)"
+ordering="AFTER"
+side="BOTH"

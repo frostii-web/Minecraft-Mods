@@ -1,0 +1,19 @@
+{
+  "block.infiniteresourcegenerators.resource_generator": "Resource Generator",
+  "itemGroup.infiniteresourcegenerators": "Infinite Resource Generators",
+  "gui.infiniteresourcegenerators.search": "Search resources (name or ID)...",
+  "gui.infiniteresourcegenerators.rejected": "This resource is locked or prohibited.",
+  "gui.infiniteresourcegenerators.ready": "Ready",
+  "gui.infiniteresourcegenerators.locked": "Locked",
+  "gui.infiniteresourcegenerators.natural": "Naturally generated ore: available immediately.",
+  "gui.infiniteresourcegenerators.unlocked": "Unlocked for this world.",
+  "gui.infiniteresourcegenerators.lock_hint": "Craft, produce, smelt, or pick up this exact item to unlock it.",
+  "gui.infiniteresourcegenerators.empty": "No matching resources.",
+  "gui.infiniteresourcegenerators.loading": "Loading resources from server...",
+  "gui.infiniteresourcegenerators.choose": "Select a resource above. Scroll to browse.",
+  "gui.infiniteresourcegenerators.running": "Generating 1 item / second",
+  "gui.infiniteresourcegenerators.full": "Paused: output is full",
+  "gui.infiniteresourcegenerators.unavailable": "Paused: selection no longer available",
+  "gui.infiniteresourcegenerators.idle": "Idle: choose a resource",
+  "gui.infiniteresourcegenerators.output": "Output"
+}

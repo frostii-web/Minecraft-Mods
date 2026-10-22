@@ -1,0 +1,79 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '6.0.36'
+}
+
+group = 'dev.frostii.infiniteresourcegenerators'
+version = '1.0.0'
+base.archivesName = 'InfiniteResourceGenerators'
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    copyIdeResources = true
+    runs {
+        configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'info'
+            property 'forge.enabledGameTestNamespaces', 'infiniteresourcegenerators'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${layout.buildDirectory.get()}/createSrgToMcp/output.srg"
+            jvmArgs '-Xmx6G'
+            args '--mixin', 'infiniteresourcegenerators.mixins.json'
+            mods { infiniteresourcegenerators { source sourceSets.main } }
+        }
+        client { }
+        server { args '--nogui' }
+        gameTestServer { workingDirectory project.file('run/gametest') }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.latvian.dev/releases'; content { includeGroup 'dev.latvian.mods' } }
+    maven { url = 'https://maven.architectury.dev'; content { includeGroup 'dev.architectury' } }
+    maven { url = 'https://maven.blamejared.com'; content { includeGroup 'mezz.jei' } }
+    maven {
+        name = 'officialGtceuReleases'
+        url = 'https://maven.gtceu.com'
+        metadataSources { mavenPom(); artifact(); ignoreGradleMetadataRedirection() }
+        content { includeGroup 'com.gregtechceu.gtceu' }
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
+    implementation fg.deobf('com.gregtechceu.gtceu:gtceu-1.20.1:7.5.1')
+    if (project.hasProperty('compatMods')) {
+        runtimeOnly fg.deobf('dev.latvian.mods:kubejs-forge:2001.6.5-build.16')
+        runtimeOnly fg.deobf('dev.latvian.mods:rhino-forge:2001.2.3-build.10')
+        runtimeOnly fg.deobf('dev.architectury:architectury-forge:9.2.14')
+        runtimeOnly fg.deobf('mezz.jei:jei-1.20.1-forge:15.20.0.127')
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 17
+}
+
+jar {
+    archiveFileName = 'InfiniteResourceGenerators-1.0.0-forge-1.20.1.jar'
+    manifest.attributes([
+        'Specification-Title': 'Infinite Resource Generators',
+        'Specification-Version': '1',
+        'Implementation-Title': project.name,
+        'Implementation-Version': project.version,
+        'MixinConfigs': 'infiniteresourcegenerators.mixins.json'
+    ])
+    finalizedBy 'reobfJar'
+}
+
+tasks.register('sourceZip', Zip) {
+    archiveFileName = 'InfiniteResourceGenerators-1.0.0-source.zip'
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    from('.') {
+        exclude '.git/**', '.gradle/**', 'build/**', 'run/**', 'logs/**', 'libs/**', '.idea/**', '*.iml'
+    }
+}

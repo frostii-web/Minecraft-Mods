@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "infiniteresourcegenerators:block/resource_generator"
+    }
+  }
+}
