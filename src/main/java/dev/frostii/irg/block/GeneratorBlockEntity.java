@@ -1,6 +1,7 @@
 package dev.frostii.irg.block;
 
 import dev.frostii.irg.InfiniteResourceGenerators;
+import dev.frostii.irg.config.GeneratorConfig;
 import dev.frostii.irg.menu.GeneratorMenu;
 import dev.frostii.irg.resource.ResourceCatalog;
 import net.minecraft.core.BlockPos;
@@ -30,10 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class GeneratorBlockEntity extends BlockEntity implements MenuProvider {
-    public static final int SLOTS = 9;
+    public static final int MAX_OUTPUT_SLOTS = 54;
     public static final int MAX_SELECTIONS = 9;
     public enum Mode { ROUND_ROBIN, ALL_AT_ONCE }
-    private final ItemStackHandler output = new ItemStackHandler(SLOTS) {
+    private final ItemStackHandler output = new ItemStackHandler(GeneratorConfig.OUTPUT_INVENTORY_SLOTS.get()) {
         @Override protected void onContentsChanged(int slot) { setChanged(); }
     };
     private final IItemHandler extractionOnly = new IItemHandler() {
@@ -49,10 +50,16 @@ public final class GeneratorBlockEntity extends BlockEntity implements MenuProvi
     private Mode mode = Mode.ROUND_ROBIN;
     private int roundRobinIndex;
     private int ticks;
+    private int autoOutputTicks;
     private int status;
 
     public GeneratorBlockEntity(BlockPos pos, BlockState state) { super(InfiniteResourceGenerators.GENERATOR_ENTITY.get(), pos, state); }
     public ItemStackHandler output() { return output; }
+    public int outputSlots() { return output.getSlots(); }
+    public void ensureClientOutputSlots(int slots) {
+        if (level != null && !level.isClientSide) return;
+        resizeOutput(Math.max(1, Math.min(MAX_OUTPUT_SLOTS, slots)));
+    }
     @Nullable public ResourceLocation selected() { return selections.isEmpty() ? null : selections.get(0); }
     public List<ResourceLocation> selections() { return List.copyOf(selections); }
     public Mode mode() { return mode; }
@@ -95,13 +102,19 @@ public final class GeneratorBlockEntity extends BlockEntity implements MenuProvi
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, GeneratorBlockEntity generator) {
         if (!(level instanceof ServerLevel server)) return;
-        if (generator.selections.isEmpty()) { generator.status = 0; return; }
-        // Full slots resume promptly, but registry/policy checks and insertions happen only once per second.
-        if (++generator.ticks < 20) return;
-        generator.ticks = 0;
-        generator.ejectToNeighbors();
-        generator.status = generator.mode == Mode.ALL_AT_ONCE ? generator.generateAll(server) : generator.generateRoundRobin(server);
-        generator.ejectToNeighbors();
+        if (generator.selections.isEmpty()) {
+            generator.status = 0;
+            generator.ticks = 0;
+        } else if (++generator.ticks >= GeneratorConfig.GENERATION_INTERVAL_TICKS.get()) {
+            generator.ticks = 0;
+            generator.status = generator.mode == Mode.ALL_AT_ONCE ? generator.generateAll(server) : generator.generateRoundRobin(server);
+        }
+        if (!GeneratorConfig.AUTO_OUTPUT_ENABLED.get()) {
+            generator.autoOutputTicks = 0;
+        } else if (++generator.autoOutputTicks >= GeneratorConfig.AUTO_OUTPUT_INTERVAL_TICKS.get()) {
+            generator.autoOutputTicks = 0;
+            generator.ejectToNeighbors(GeneratorConfig.AUTO_OUTPUT_MAX_ITEMS.get());
+        }
         // Inventory changes mark successful insertions dirty; selection and partial progress are serialized separately.
     }
 
@@ -120,7 +133,7 @@ public final class GeneratorBlockEntity extends BlockEntity implements MenuProvi
     }
 
     private int generateAll(ServerLevel server) {
-        ItemStackHandler simulated = new ItemStackHandler(SLOTS);
+        ItemStackHandler simulated = new ItemStackHandler(output.getSlots());
         simulated.deserializeNBT(output.serializeNBT());
         List<ItemStack> batch = new ArrayList<>();
         for (ResourceLocation id : selections) {
@@ -134,31 +147,37 @@ public final class GeneratorBlockEntity extends BlockEntity implements MenuProvi
         return 1;
     }
 
-    private void ejectToNeighbors() {
+    private void ejectToNeighbors(int maxItems) {
         if (level == null) return;
         boolean empty = true;
-        for (int slot = 0; slot < SLOTS; slot++) if (!output.getStackInSlot(slot).isEmpty()) { empty = false; break; }
+        for (int slot = 0; slot < output.getSlots(); slot++) if (!output.getStackInSlot(slot).isEmpty()) { empty = false; break; }
         if (empty) return;
+        int remainingBudget = maxItems;
         for (Direction direction : Direction.values()) {
+            if (remainingBudget <= 0) break;
             BlockPos neighborPos = worldPosition.relative(direction);
             if (!level.hasChunkAt(neighborPos)) continue; // Never load chunks for automation.
             BlockEntity neighbor = level.getBlockEntity(neighborPos);
             if (neighbor == null) continue;
-            neighbor.getCapability(ForgeCapabilities.ITEM_HANDLER, direction.getOpposite()).ifPresent(destination -> {
-                for (int slot = 0; slot < SLOTS; slot++) {
+            var capability = neighbor.getCapability(ForgeCapabilities.ITEM_HANDLER, direction.getOpposite());
+            if (capability.isPresent()) {
+                IItemHandler destination = capability.orElseThrow(IllegalStateException::new);
+                for (int slot = 0; slot < output.getSlots() && remainingBudget > 0; slot++) {
                     ItemStack offered = output.getStackInSlot(slot);
                     if (offered.isEmpty()) continue;
-                    ItemStack remainder = ItemHandlerHelper.insertItemStacked(destination, offered.copy(), false);
-                    int inserted = offered.getCount() - remainder.getCount();
+                    int offeredCount = Math.min(offered.getCount(), remainingBudget);
+                    ItemStack remainder = ItemHandlerHelper.insertItemStacked(destination, offered.copyWithCount(offeredCount), false);
+                    int inserted = offeredCount - remainder.getCount();
                     if (inserted > 0) output.extractItem(slot, inserted, false);
+                    remainingBudget -= inserted;
                 }
-            });
+            }
         }
     }
 
     public void dropContents() {
         if (level == null || level.isClientSide) return;
-        for (int i = 0; i < SLOTS; i++) {
+        for (int i = 0; i < output.getSlots(); i++) {
             Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), output.getStackInSlot(i));
             output.setStackInSlot(i, ItemStack.EMPTY);
         }
@@ -173,13 +192,21 @@ public final class GeneratorBlockEntity extends BlockEntity implements MenuProvi
         tag.putString("Mode", mode.name());
         tag.putInt("RoundRobinIndex", roundRobinIndex);
         tag.putInt("Ticks", ticks);
+        tag.putInt("AutoOutputTicks", autoOutputTicks);
     }
 
     @Override public void load(CompoundTag tag) {
         super.load(tag);
-        // Fix the slot count: never trust an edited NBT Size field to change the menu's layout.
         CompoundTag inventory = tag.getCompound("Output").copy();
-        inventory.putInt("Size", SLOTS);
+        int configuredSlots = GeneratorConfig.OUTPUT_INVENTORY_SLOTS.get();
+        int highestOccupied = -1;
+        var savedItems = inventory.getList("Items", net.minecraft.nbt.Tag.TAG_COMPOUND);
+        for (int i = 0; i < savedItems.size(); i++) {
+            CompoundTag itemTag = savedItems.getCompound(i);
+            if (!ItemStack.of(itemTag).isEmpty()) highestOccupied = Math.max(highestOccupied, itemTag.getInt("Slot"));
+        }
+        int preservedSlots = Math.max(configuredSlots, highestOccupied + 1);
+        inventory.putInt("Size", Math.max(1, Math.min(MAX_OUTPUT_SLOTS, preservedSlots)));
         output.deserializeNBT(inventory);
         selections.clear();
         var selectedTag = tag.getList("Selections", net.minecraft.nbt.Tag.TAG_STRING);
@@ -193,7 +220,15 @@ public final class GeneratorBlockEntity extends BlockEntity implements MenuProvi
         }
         try { mode = Mode.valueOf(tag.getString("Mode")); } catch (IllegalArgumentException ignored) { mode = Mode.ROUND_ROBIN; }
         roundRobinIndex = selections.isEmpty() ? 0 : Math.floorMod(tag.getInt("RoundRobinIndex"), selections.size());
-        ticks = Math.max(0, Math.min(19, tag.getInt("Ticks")));
+        ticks = Math.max(0, Math.min(GeneratorConfig.GENERATION_INTERVAL_TICKS.get() - 1, tag.getInt("Ticks")));
+        autoOutputTicks = Math.max(0, Math.min(GeneratorConfig.AUTO_OUTPUT_INTERVAL_TICKS.get() - 1, tag.getInt("AutoOutputTicks")));
+    }
+
+    private void resizeOutput(int slots) {
+        if (output.getSlots() == slots) return;
+        CompoundTag inventory = output.serializeNBT();
+        inventory.putInt("Size", slots);
+        output.deserializeNBT(inventory);
     }
 
     @Override public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction side) {

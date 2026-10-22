@@ -19,6 +19,9 @@ import java.util.Objects;
 
 public final class GeneratorMenu extends AbstractContainerMenu {
     public final GeneratorBlockEntity generator;
+    public final int outputSlotCount;
+    public final int outputRows;
+    public final int playerInventoryY;
     private final ContainerData data;
     private final Player owner;
     public final List<ModNetwork.CatalogEntry> clientEntries = new ArrayList<>();
@@ -36,13 +39,21 @@ public final class GeneratorMenu extends AbstractContainerMenu {
     public static GeneratorMenu fromNetwork(int id, Inventory inventory, FriendlyByteBuf buffer) {
         var entity = inventory.player.level().getBlockEntity(buffer.readBlockPos());
         if (!(entity instanceof GeneratorBlockEntity generator)) throw new IllegalStateException("Generator menu opened without its block entity");
-        return new GeneratorMenu(id, inventory, generator);
+        return new GeneratorMenu(id, inventory, generator, buffer.readVarInt());
     }
 
     public GeneratorMenu(int id, Inventory inventory, GeneratorBlockEntity generator) {
+        this(id, inventory, generator, generator.outputSlots());
+    }
+
+    private GeneratorMenu(int id, Inventory inventory, GeneratorBlockEntity generator, int advertisedSlots) {
         super(InfiniteResourceGenerators.GENERATOR_MENU.get(), id);
         this.generator = generator;
         this.owner = inventory.player;
+        generator.ensureClientOutputSlots(advertisedSlots);
+        this.outputSlotCount = generator.outputSlots();
+        this.outputRows = (outputSlotCount + 8) / 9;
+        this.playerInventoryY = 154 + outputRows * 18;
         if (inventory.player.level().isClientSide) data = new SimpleContainerData(2);
         else data = new ContainerData() {
             @Override public int get(int index) { return index == 0 ? generator.status() : generator.progress(); }
@@ -50,15 +61,15 @@ public final class GeneratorMenu extends AbstractContainerMenu {
             @Override public int getCount() { return 2; }
         };
         addDataSlots(data);
-        for (int slot = 0; slot < GeneratorBlockEntity.SLOTS; slot++) {
-            addSlot(new SlotItemHandler(generator.output(), slot, 69 + slot * 18, 140) {
+        for (int slot = 0; slot < outputSlotCount; slot++) {
+            addSlot(new SlotItemHandler(generator.output(), slot, 69 + (slot % 9) * 18, 140 + (slot / 9) * 18) {
                 @Override public boolean mayPlace(ItemStack stack) { return false; }
             });
         }
         for (int row = 0; row < 3; row++) for (int column = 0; column < 9; column++) {
-            addSlot(new Slot(inventory, column + row * 9 + 9, 69 + column * 18, 172 + row * 18));
+            addSlot(new Slot(inventory, column + row * 9 + 9, 69 + column * 18, playerInventoryY + row * 18));
         }
-        for (int column = 0; column < 9; column++) addSlot(new Slot(inventory, column, 69 + column * 18, 230));
+        for (int column = 0; column < 9; column++) addSlot(new Slot(inventory, column, 69 + column * 18, playerInventoryY + 58));
     }
 
     public int status() { return data.get(0); }
@@ -77,8 +88,11 @@ public final class GeneratorMenu extends AbstractContainerMenu {
         ItemStack stack = slot.getItem();
         ItemStack original = stack.copy();
         // Player slots can never shift-insert into the output. Allow rearranging main inventory/hotbar.
-        boolean moved = index < 9 ? moveItemStackTo(stack, 9, 45, true)
-                : index < 36 ? moveItemStackTo(stack, 36, 45, false) : moveItemStackTo(stack, 9, 36, false);
+        int mainStart = outputSlotCount;
+        int hotbarStart = mainStart + 27;
+        int end = mainStart + 36;
+        boolean moved = index < outputSlotCount ? moveItemStackTo(stack, mainStart, end, true)
+                : index < hotbarStart ? moveItemStackTo(stack, hotbarStart, end, false) : moveItemStackTo(stack, mainStart, hotbarStart, false);
         if (!moved) return ItemStack.EMPTY;
         if (stack.isEmpty()) slot.set(ItemStack.EMPTY); else slot.setChanged();
         slot.onTake(player, stack);

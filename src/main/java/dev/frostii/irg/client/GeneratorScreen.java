@@ -25,9 +25,9 @@ public final class GeneratorScreen extends AbstractContainerScreen<GeneratorMenu
     public GeneratorScreen(GeneratorMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
         imageWidth = 300;
-        imageHeight = 252;
+        imageHeight = menu.playerInventoryY + 80;
         inventoryLabelX = 69;
-        inventoryLabelY = 160;
+        inventoryLabelY = menu.playerInventoryY - 12;
     }
 
     @Override protected void init() {

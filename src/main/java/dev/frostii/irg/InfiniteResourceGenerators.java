@@ -3,6 +3,7 @@ package dev.frostii.irg;
 import com.mojang.logging.LogUtils;
 import dev.frostii.irg.block.GeneratorBlock;
 import dev.frostii.irg.block.GeneratorBlockEntity;
+import dev.frostii.irg.config.GeneratorConfig;
 import dev.frostii.irg.menu.GeneratorMenu;
 import dev.frostii.irg.network.ModNetwork;
 import dev.frostii.irg.resource.ResourceEvents;
@@ -18,6 +19,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -47,6 +50,7 @@ public final class InfiniteResourceGenerators {
     }
 
     public InfiniteResourceGenerators() {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GeneratorConfig.SPEC, "infiniteresourcegenerators-common.toml");
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         BLOCKS.register(bus);
         ITEMS.register(bus);

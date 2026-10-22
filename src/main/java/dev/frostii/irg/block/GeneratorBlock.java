@@ -31,7 +31,10 @@ public final class GeneratorBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer && level.getBlockEntity(pos) instanceof GeneratorBlockEntity generator) {
-            NetworkHooks.openScreen(serverPlayer, generator, pos);
+            NetworkHooks.openScreen(serverPlayer, generator, buffer -> {
+                buffer.writeBlockPos(pos);
+                buffer.writeVarInt(generator.outputSlots());
+            });
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }

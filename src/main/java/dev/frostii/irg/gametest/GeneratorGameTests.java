@@ -58,14 +58,14 @@ public final class GeneratorGameTests {
     public static void fullInventoryPausesAndResumes(GameTestHelper test) {
         GeneratorBlockEntity generator = place(test, POS);
         test.assertTrue(generator.select(id(iron())), "Iron is not selectable");
-        for (int slot = 0; slot < 9; slot++) generator.output().setStackInSlot(slot, iron().copyWithCount(64));
+        for (int slot = 0; slot < generator.outputSlots(); slot++) generator.output().setStackInSlot(slot, iron().copyWithCount(64));
         test.runAfterDelay(21, () -> {
-            test.assertTrue(total(generator) == 576 && generator.status() == 2, "Full generator did not pause");
+            test.assertTrue(total(generator) == generator.outputSlots() * 64 && generator.status() == 2, "Full generator did not pause");
             var capability = generator.getCapability(ForgeCapabilities.ITEM_HANDLER, Direction.DOWN).orElseThrow(IllegalStateException::new);
             test.assertTrue(capability.extractItem(0, 1, false).getCount() == 1, "Cannot extract output");
         });
         test.runAfterDelay(42, () -> {
-            test.assertTrue(total(generator) == 576 && generator.status() == 1, "Generator did not resume after extraction");
+            test.assertTrue(total(generator) == generator.outputSlots() * 64 && generator.status() == 1, "Generator did not resume after extraction");
             test.assertEntityNotPresent(EntityType.ITEM);
             test.succeed();
         });
@@ -97,6 +97,24 @@ public final class GeneratorGameTests {
         });
     }
 
+    @GameTest(template = "empty", timeoutTicks = 20)
+    public static void autoOutputHonorsTransferLimitAndKeepsRejectedItems(GameTestHelper test) {
+        test.setBlock(POS.east(), Blocks.CHEST);
+        var chest = (net.minecraft.world.level.block.entity.ChestBlockEntity) test.getBlockEntity(POS.east());
+        for (int slot = 0; slot < chest.getContainerSize() - 1; slot++) chest.setItem(slot, new ItemStack(Items.COBBLESTONE, 64));
+        var generator = place(test, POS);
+        generator.output().setStackInSlot(0, iron().copyWithCount(64));
+        generator.output().setStackInSlot(1, iron().copyWithCount(64));
+        test.runAfterDelay(6, () -> {
+            test.assertTrue(chest.getItem(chest.getContainerSize() - 1).getCount() == 64 && total(generator) == 64,
+                    "Automatic output did not respect the configured 64-item transfer limit");
+        });
+        test.runAfterDelay(12, () -> {
+            test.assertTrue(total(generator) == 64, "Items were deleted when the adjacent inventory rejected insertion");
+            test.succeed();
+        });
+    }
+
     @GameTest(template = "empty")
     public static void automationRejectsInsertionAndSimulationIsSafe(GameTestHelper test) {
         GeneratorBlockEntity generator = place(test, POS);
@@ -119,6 +137,14 @@ public final class GeneratorGameTests {
         var restored = new GeneratorBlockEntity(generator.getBlockPos(), generator.getBlockState());
         restored.load(saved);
         test.assertTrue(id(iron()).equals(restored.selected()) && total(restored) == 17, "Generator data did not survive NBT reload");
+        var oversized = new net.minecraftforge.items.ItemStackHandler(12);
+        oversized.setStackInSlot(11, iron().copyWithCount(5));
+        CompoundTag migration = new CompoundTag();
+        migration.put("Output", oversized.serializeNBT());
+        var migrated = new GeneratorBlockEntity(generator.getBlockPos(), generator.getBlockState());
+        migrated.load(migration);
+        test.assertTrue(migrated.outputSlots() >= 12 && migrated.output().getStackInSlot(11).getCount() == 5,
+                "Shrinking the configured inventory deleted an occupied trailing slot");
         WorldUnlocks data = new WorldUnlocks();
         var ingot = id(ChemicalHelper.get(TagPrefix.ingot, GTMaterials.Bronze));
         var plate = id(ChemicalHelper.get(TagPrefix.plate, GTMaterials.Bronze));
@@ -140,15 +166,16 @@ public final class GeneratorGameTests {
         allAtOnce.setMode(GeneratorBlockEntity.Mode.ALL_AT_ONCE);
         test.assertTrue(atomicBatch.toggleSelection(id(iron())) && atomicBatch.toggleSelection(id(tin)), "Atomic-batch selections rejected");
         atomicBatch.setMode(GeneratorBlockEntity.Mode.ALL_AT_ONCE);
-        for (int slot = 0; slot < 8; slot++) atomicBatch.output().setStackInSlot(slot, iron().copyWithCount(64));
-        atomicBatch.output().setStackInSlot(8, iron().copyWithCount(63));
+        for (int slot = 0; slot < atomicBatch.outputSlots() - 1; slot++) atomicBatch.output().setStackInSlot(slot, iron().copyWithCount(64));
+        atomicBatch.output().setStackInSlot(atomicBatch.outputSlots() - 1, iron().copyWithCount(63));
         test.runAfterDelay(21, () -> {
             test.assertTrue(total(roundRobin) == 1 && roundRobin.output().getStackInSlot(0).is(iron().getItem()), "Round robin did not produce its first resource only");
             test.assertTrue(total(allAtOnce) == 2 && allAtOnce.output().getStackInSlot(0).is(iron().getItem())
                     && allAtOnce.output().getStackInSlot(1).is(tin.getItem()), "All-at-once did not produce one of every selected resource");
-            test.assertTrue(total(atomicBatch) == 575 && atomicBatch.output().getStackInSlot(8).getCount() == 63,
+            test.assertTrue(total(atomicBatch) == atomicBatch.outputSlots() * 64 - 1
+                            && atomicBatch.output().getStackInSlot(atomicBatch.outputSlots() - 1).getCount() == 63,
                     "All-at-once partially generated a batch that could not completely fit");
-            for (int slot = 0; slot < 9; slot++) atomicBatch.output().setStackInSlot(slot, ItemStack.EMPTY);
+            for (int slot = 0; slot < atomicBatch.outputSlots(); slot++) atomicBatch.output().setStackInSlot(slot, ItemStack.EMPTY);
         });
         test.runAfterDelay(41, () -> {
             test.assertTrue(total(roundRobin) == 2 && roundRobin.output().getStackInSlot(1).is(tin.getItem()), "Round robin did not advance to its next resource");
@@ -222,8 +249,8 @@ public final class GeneratorGameTests {
         var absolute = test.absolutePos(POS);
         player.setPos(absolute.getX() + 0.5, absolute.getY() + 0.5, absolute.getZ() + 0.5);
         var menu = generator.createMenu(1, player.getInventory(), player);
-        test.assertTrue(menu instanceof dev.frostii.irg.menu.GeneratorMenu && menu.slots.size() == 45 && menu.stillValid(player), "Server menu did not initialize with output and player slots");
-        for (int slot = 0; slot < 9; slot++) test.assertFalse(menu.getSlot(slot).mayPlace(new ItemStack(Items.IRON_INGOT)), "GUI allowed inserting into an output slot");
+        test.assertTrue(menu instanceof dev.frostii.irg.menu.GeneratorMenu && menu.slots.size() == generator.outputSlots() + 36 && menu.stillValid(player), "Server menu did not initialize with configured output and player slots");
+        for (int slot = 0; slot < generator.outputSlots(); slot++) test.assertFalse(menu.getSlot(slot).mayPlace(new ItemStack(Items.IRON_INGOT)), "GUI allowed inserting into an output slot");
         test.succeed();
     }
 
