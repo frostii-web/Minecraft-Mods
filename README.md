@@ -2,6 +2,12 @@
 
 A Forge **1.20.1 / Java 17** mod for **GTCEu Modern 7.5.1**. Adds one inexpensive Resource Generator that produces a selected resource every 20 game ticks, without power, fuel, water, or inputs.
 
+## Download
+
+Download the compiled mod: [InfiniteResourceGenerators-1.0.0-forge-1.20.1.jar](releases/InfiniteResourceGenerators-1.0.0-forge-1.20.1.jar?raw=1)
+
+SHA-256: `2d07d6c92411d350a91a3653d76468e9020627463f64f45309881687250f3713`
+
 ## Installation
 
 1. Close Minecraft (and the dedicated server, if applicable).
