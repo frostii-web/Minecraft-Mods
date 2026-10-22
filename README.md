@@ -6,7 +6,7 @@ A Forge **1.20.1 / Java 17** mod for **GTCEu Modern 7.5.1**. Adds one inexpensiv
 
 Download the compiled mod: [InfiniteResourceGenerators-1.0.0-forge-1.20.1.jar](releases/InfiniteResourceGenerators-1.0.0-forge-1.20.1.jar?raw=1)
 
-SHA-256: `2d07d6c92411d350a91a3653d76468e9020627463f64f45309881687250f3713`
+SHA-256: `586d244eb4b71db62d081fdbac3c19fbf217582737399c74f30e41e622fd7af3`
 
 ## Installation
 
@@ -17,12 +17,12 @@ SHA-256: `2d07d6c92411d350a91a3653d76468e9020627463f64f45309881687250f3713`
 
 Craft the generator in an ordinary crafting table:
 
-| Iron ingot | Glass | Iron ingot |
+| Iron ingot | Iron ingot | Iron ingot |
 | --- | --- | --- |
-| Copper ingot | Chest | Copper ingot |
-| Iron ingot | Furnace | Iron ingot |
+| Copper ingot | Crafting table | Copper ingot |
+| Empty | Copper ingot | Empty |
 
-Iron, copper, and glass use Forge ingredient tags, so the pack's equivalents work. The block and its ordinary crafting recipe are visible to JEI without an extra JEI plugin.
+Iron and copper use Forge ingredient tags, so the pack's equivalents work. The block and its ordinary crafting recipe are visible to JEI without an extra JEI plugin.
 
 ## Use
 
