@@ -129,6 +129,39 @@ public final class GeneratorGameTests {
         test.succeed();
     }
 
+    @GameTest(template = "empty", timeoutTicks = 70)
+    public static void multipleSelectionsSupportBothProductionModes(GameTestHelper test) {
+        ItemStack tin = ChemicalHelper.get(TagPrefix.ore, GTMaterials.Tin);
+        var roundRobin = place(test, new BlockPos(1, 2, 2));
+        var allAtOnce = place(test, new BlockPos(3, 2, 2));
+        var atomicBatch = place(test, new BlockPos(2, 2, 3));
+        test.assertTrue(roundRobin.toggleSelection(id(iron())) && roundRobin.toggleSelection(id(tin)), "Round-robin selections rejected");
+        test.assertTrue(allAtOnce.toggleSelection(id(iron())) && allAtOnce.toggleSelection(id(tin)), "All-at-once selections rejected");
+        allAtOnce.setMode(GeneratorBlockEntity.Mode.ALL_AT_ONCE);
+        test.assertTrue(atomicBatch.toggleSelection(id(iron())) && atomicBatch.toggleSelection(id(tin)), "Atomic-batch selections rejected");
+        atomicBatch.setMode(GeneratorBlockEntity.Mode.ALL_AT_ONCE);
+        for (int slot = 0; slot < 8; slot++) atomicBatch.output().setStackInSlot(slot, iron().copyWithCount(64));
+        atomicBatch.output().setStackInSlot(8, iron().copyWithCount(63));
+        test.runAfterDelay(21, () -> {
+            test.assertTrue(total(roundRobin) == 1 && roundRobin.output().getStackInSlot(0).is(iron().getItem()), "Round robin did not produce its first resource only");
+            test.assertTrue(total(allAtOnce) == 2 && allAtOnce.output().getStackInSlot(0).is(iron().getItem())
+                    && allAtOnce.output().getStackInSlot(1).is(tin.getItem()), "All-at-once did not produce one of every selected resource");
+            test.assertTrue(total(atomicBatch) == 575 && atomicBatch.output().getStackInSlot(8).getCount() == 63,
+                    "All-at-once partially generated a batch that could not completely fit");
+            for (int slot = 0; slot < 9; slot++) atomicBatch.output().setStackInSlot(slot, ItemStack.EMPTY);
+        });
+        test.runAfterDelay(41, () -> {
+            test.assertTrue(total(roundRobin) == 2 && roundRobin.output().getStackInSlot(1).is(tin.getItem()), "Round robin did not advance to its next resource");
+            CompoundTag saved = allAtOnce.saveWithFullMetadata();
+            var restored = new GeneratorBlockEntity(allAtOnce.getBlockPos(), allAtOnce.getBlockState());
+            restored.load(saved);
+            test.assertTrue(restored.selections().size() == 2 && restored.mode() == GeneratorBlockEntity.Mode.ALL_AT_ONCE,
+                    "Multiple selections or mode did not survive NBT reload");
+            test.assertTrue(total(atomicBatch) == 2, "All-at-once did not resume with a complete batch after space became available");
+            test.succeed();
+        });
+    }
+
     @GameTest(template = "empty", timeoutTicks = 60)
     public static void multipleGeneratorsChangeSelectionIndependently(GameTestHelper test) {
         var a = place(test, new BlockPos(1, 2, 2));
@@ -176,8 +209,8 @@ public final class GeneratorGameTests {
             @Override public boolean stillValid(net.minecraft.world.entity.player.Player player) { return true; }
         };
         var grid = new net.minecraft.world.inventory.TransientCraftingContainer(dummyMenu, 3, 3);
-        var ingredients = new net.minecraft.world.item.Item[] {Items.IRON_INGOT, Items.GLASS, Items.IRON_INGOT,
-                Items.COPPER_INGOT, Items.CHEST, Items.COPPER_INGOT, Items.IRON_INGOT, Items.FURNACE, Items.IRON_INGOT};
+        var ingredients = new net.minecraft.world.item.Item[] {Items.IRON_INGOT, Items.IRON_INGOT, Items.IRON_INGOT,
+                Items.COPPER_INGOT, Items.CRAFTING_TABLE, Items.COPPER_INGOT, Items.AIR, Items.COPPER_INGOT, Items.AIR};
         for (int i = 0; i < ingredients.length; i++) grid.setItem(i, new ItemStack(ingredients[i]));
         var recipe = test.getLevel().getRecipeManager().byKey(new ResourceLocation(InfiniteResourceGenerators.MOD_ID, "resource_generator")).orElseThrow();
         test.assertTrue(recipe instanceof net.minecraft.world.item.crafting.CraftingRecipe, "Survival crafting recipe missing");

@@ -1,5 +1,6 @@
 package dev.frostii.irg.client;
 
+import dev.frostii.irg.block.GeneratorBlockEntity;
 import dev.frostii.irg.menu.GeneratorMenu;
 import dev.frostii.irg.network.ModNetwork;
 import net.minecraft.client.gui.GuiGraphics;
@@ -85,7 +86,7 @@ public final class GeneratorScreen extends AbstractContainerScreen<GeneratorMenu
             int rowY = y + 34 + row * 18;
             if (index >= filtered.size()) break;
             var entry = filtered.get(index);
-            boolean selected = entry.item().equals(menu.clientSelected);
+            boolean selected = menu.clientSelections.contains(entry.item());
             g.fill(x + 8, rowY, x + 285, rowY + 18, selected ? 0xff547d78 : rowAt(mouseX, mouseY) == row ? 0xffaaaaaa : 0xff8b8b8b);
             ItemStack stack = stack(entry);
             g.renderItem(stack, x + 9, rowY + 1);
@@ -100,15 +101,23 @@ public final class GeneratorScreen extends AbstractContainerScreen<GeneratorMenu
         g.fill(x + 287, thumbY, x + 292, thumbY + 18, 0xffdddddd);
         if (filtered.isEmpty()) g.drawString(font, Component.translatable(menu.catalogReady ? "gui.infiniteresourcegenerators.empty" : "gui.infiniteresourcegenerators.loading"), x + 15, y + 62, 0xffffffff, false);
 
-        if (menu.clientSelected != null) {
-            var item = ForgeRegistries.ITEMS.getValue(menu.clientSelected);
-            if (item != null) {
-                ItemStack stack = item.getDefaultInstance();
-                g.renderItem(stack, x + 8, y + 109);
-                g.drawString(font, font.plainSubstrByWidth(stack.getHoverName().getString(), 263), x + 29, y + 113, 0xff333333, false);
-            }
-        } else g.drawString(font, Component.translatable("gui.infiniteresourcegenerators.choose"), x + 8, y + 113, 0xff333333, false);
-        String status = switch (menu.status()) { case 1 -> "running"; case 2 -> "full"; case 3 -> "unavailable"; default -> "idle"; };
+        g.drawString(font, Component.translatable("gui.infiniteresourcegenerators.configured", menu.clientSelections.size(), GeneratorBlockEntity.MAX_SELECTIONS), x + 8, y + 113, 0xff333333, false);
+        int iconX = x + 91;
+        for (var id : menu.clientSelections.stream().limit(6).toList()) {
+            var item = ForgeRegistries.ITEMS.getValue(id);
+            if (item != null) g.renderItem(item.getDefaultInstance(), iconX, y + 109);
+            iconX += 18;
+        }
+        int modeLeft = x + 205;
+        boolean modeHover = mouseX >= modeLeft && mouseX < x + 293 && mouseY >= y + 109 && mouseY < y + 126;
+        g.fill(modeLeft, y + 109, x + 293, y + 126, modeHover ? 0xffaaaaaa : 0xff8b8b8b);
+        Component mode = Component.translatable(menu.clientMode == GeneratorBlockEntity.Mode.ROUND_ROBIN
+                ? "gui.infiniteresourcegenerators.round_robin" : "gui.infiniteresourcegenerators.all_at_once");
+        g.drawCenteredString(font, mode, modeLeft + 44, y + 114, 0xffffffff);
+        String status = switch (menu.status()) {
+            case 1 -> menu.clientMode == GeneratorBlockEntity.Mode.ALL_AT_ONCE ? "running_all" : "running_round_robin";
+            case 2 -> "full"; case 3 -> "unavailable"; default -> "idle";
+        };
         g.drawString(font, Component.translatable("gui.infiniteresourcegenerators." + status), x + 8, y + 128, 0xff333333, false);
         g.drawString(font, Component.translatable("gui.infiniteresourcegenerators.output"), x + 8, y + 144, 0xff333333, false);
         for (var slot : menu.slots) {
@@ -125,6 +134,11 @@ public final class GeneratorScreen extends AbstractContainerScreen<GeneratorMenu
     }
 
     @Override public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0 && mouseX >= leftPos + 205 && mouseX < leftPos + 293 && mouseY >= topPos + 109 && mouseY < topPos + 126) {
+            ModNetwork.setMode(menu.containerId, menu.clientMode == GeneratorBlockEntity.Mode.ROUND_ROBIN
+                    ? GeneratorBlockEntity.Mode.ALL_AT_ONCE : GeneratorBlockEntity.Mode.ROUND_ROBIN);
+            return true;
+        }
         int row = rowAt(mouseX, mouseY);
         if (button == 0 && row >= 0 && row + scroll < filtered.size()) {
             var entry = filtered.get(row + scroll);

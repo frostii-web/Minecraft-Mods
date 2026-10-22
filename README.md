@@ -6,7 +6,7 @@ A Forge **1.20.1 / Java 17** mod for **GTCEu Modern 7.5.1**. Adds one inexpensiv
 
 Download the compiled mod: [InfiniteResourceGenerators-1.0.0-forge-1.20.1.jar](releases/InfiniteResourceGenerators-1.0.0-forge-1.20.1.jar?raw=1)
 
-SHA-256: `586d244eb4b71db62d081fdbac3c19fbf217582737399c74f30e41e622fd7af3`
+SHA-256: `40decc311bf88633fe777b87c6e873f3b889e1451aeb195455ea1097ef299cb6`
 
 ## Installation
 
@@ -26,9 +26,9 @@ Iron and copper use Forge ingredient tags, so the pack's equivalents work. The b
 
 ## Use
 
-Place the generator and right-click it. Search by translated item name or registry ID, scroll the list, and click a **Ready** resource. Locked forms stay visible and show their unlock instructions on hover. Selection is checked by the server.
+Place the generator and right-click it. Search by translated item name or registry ID, scroll the list, and click any **Ready** resource to add it to the configuration. Click a selected resource again to remove it. Up to nine resources can be selected. Locked forms stay visible and show their unlock instructions on hover. Every configuration change is checked by the server.
 
-The generator has nine output slots. It produces one item per 20 ticks, pauses when there is no space, and resumes on a later generation tick when space is available. Server lag affects wall-clock speed. Selecting a new resource retains existing output and restarts the 20-tick timer. Inventory and selection save with the block entity.
+Click the mode button to switch between **Round Robin** and **All at Once**. Round Robin produces one item from the next selected resource every 20 ticks. All at Once produces one item from every selected resource every 20 ticks; it pauses unless the complete batch fits, so it never generates only part of a batch. The generator has nine output slots and consumes no input items. Server lag affects wall-clock speed. Changing the configuration retains existing output and restarts the 20-tick timer. Inventory, selected resources, mode, and round-robin position save with the block entity.
 
 Hoppers, GT item pipes/conveyors, and other standard Forge item handlers can extract from any side. Automation and the GUI cannot insert into its output. Every second it also offers its output to adjacent inventories, so a chest directly beside it works without another mod. Automation never loads neighboring chunks. Generators only operate while their chunk is ticking; there is no offline catch-up.
 
@@ -55,7 +55,7 @@ On Windows use `gradlew.bat`. ForgeGradle **6.0.36**, Gradle **8.8**, Forge **47
 
 The headless server does not use client sound/image assets, so its command excludes only `downloadAssets`. Client launches download and verify those assets normally. Development runs enable Mixin refmap remapping for the installed dependencies; the production JAR registers its own mixin through its manifest.
 
-GameTests run in `run/gametest`. Use a fresh test world for the bronze progression test, which intentionally verifies bronze starts locked. Tests cover real 20-tick generation, full output/resumption, hopper extraction, direct chest output, insertion rejection, NBT serialization, independent generators/selections, natural GT ore availability, prohibited items, and a powered GT LV alloy smelter producing bronze from copper and tin.
+GameTests run in `run/gametest`. Use a fresh test world for the bronze progression test, which intentionally verifies bronze starts locked. Tests cover real 20-tick generation, round-robin and all-at-once multi-resource production, full output/resumption, hopper extraction, direct chest output, insertion rejection, NBT serialization, independent generators/selections, natural GT ore availability, prohibited items, and a powered GT LV alloy smelter producing bronze from copper and tin.
 
 Outputs:
 

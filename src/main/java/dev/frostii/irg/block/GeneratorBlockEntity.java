@@ -26,9 +26,13 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class GeneratorBlockEntity extends BlockEntity implements MenuProvider {
     public static final int SLOTS = 9;
+    public static final int MAX_SELECTIONS = 9;
+    public enum Mode { ROUND_ROBIN, ALL_AT_ONCE }
     private final ItemStackHandler output = new ItemStackHandler(SLOTS) {
         @Override protected void onContentsChanged(int slot) { setChanged(); }
     };
@@ -41,20 +45,26 @@ public final class GeneratorBlockEntity extends BlockEntity implements MenuProvi
         @Override public boolean isItemValid(int slot, @NotNull ItemStack stack) { return false; }
     };
     private LazyOptional<IItemHandler> itemCapability = LazyOptional.of(() -> extractionOnly);
-    @Nullable private ResourceLocation selected;
+    private final List<ResourceLocation> selections = new ArrayList<>();
+    private Mode mode = Mode.ROUND_ROBIN;
+    private int roundRobinIndex;
     private int ticks;
     private int status;
 
     public GeneratorBlockEntity(BlockPos pos, BlockState state) { super(InfiniteResourceGenerators.GENERATOR_ENTITY.get(), pos, state); }
     public ItemStackHandler output() { return output; }
-    @Nullable public ResourceLocation selected() { return selected; }
+    @Nullable public ResourceLocation selected() { return selections.isEmpty() ? null : selections.get(0); }
+    public List<ResourceLocation> selections() { return List.copyOf(selections); }
+    public Mode mode() { return mode; }
     public int progress() { return ticks; }
     public int status() { return status; }
 
     public boolean select(ResourceLocation id) {
         if (!(level instanceof ServerLevel server) || !ResourceCatalog.isAvailable(server, id)) return false;
-        if (!id.equals(selected)) {
-            selected = id;
+        if (selections.size() != 1 || !id.equals(selections.get(0))) {
+            selections.clear();
+            selections.add(id);
+            roundRobinIndex = 0;
             ticks = 0;
             status = 1;
             setChanged();
@@ -62,20 +72,66 @@ public final class GeneratorBlockEntity extends BlockEntity implements MenuProvi
         return true;
     }
 
+    public boolean toggleSelection(ResourceLocation id) {
+        if (!(level instanceof ServerLevel server) || !ResourceCatalog.isAvailable(server, id)) return false;
+        if (selections.remove(id)) {
+            roundRobinIndex = selections.isEmpty() ? 0 : roundRobinIndex % selections.size();
+        } else {
+            if (selections.size() >= MAX_SELECTIONS) return false;
+            selections.add(id);
+        }
+        ticks = 0;
+        status = selections.isEmpty() ? 0 : 1;
+        setChanged();
+        return true;
+    }
+
+    public void setMode(Mode mode) {
+        if (this.mode == mode) return;
+        this.mode = mode;
+        ticks = 0;
+        setChanged();
+    }
+
     public static void serverTick(Level level, BlockPos pos, BlockState state, GeneratorBlockEntity generator) {
         if (!(level instanceof ServerLevel server)) return;
-        if (generator.selected == null) { generator.status = 0; return; }
+        if (generator.selections.isEmpty()) { generator.status = 0; return; }
         // Full slots resume promptly, but registry/policy checks and insertions happen only once per second.
         if (++generator.ticks < 20) return;
         generator.ticks = 0;
         generator.ejectToNeighbors();
-        if (!ResourceCatalog.isAvailable(server, generator.selected)) { generator.status = 3; return; }
-        ItemStack stack = ResourceCatalog.stack(generator.selected);
-        if (stack.isEmpty()) { generator.status = 3; return; }
-        ItemStack remainder = ItemHandlerHelper.insertItemStacked(generator.output, stack, false);
-        generator.status = remainder.isEmpty() ? 1 : 2;
+        generator.status = generator.mode == Mode.ALL_AT_ONCE ? generator.generateAll(server) : generator.generateRoundRobin(server);
         generator.ejectToNeighbors();
         // Inventory changes mark successful insertions dirty; selection and partial progress are serialized separately.
+    }
+
+    private int generateRoundRobin(ServerLevel server) {
+        int checked = 0;
+        while (checked++ < selections.size()) {
+            roundRobinIndex %= selections.size();
+            ResourceLocation id = selections.get(roundRobinIndex);
+            roundRobinIndex = (roundRobinIndex + 1) % selections.size();
+            if (!ResourceCatalog.isAvailable(server, id)) continue;
+            ItemStack stack = ResourceCatalog.stack(id);
+            if (stack.isEmpty()) continue;
+            return ItemHandlerHelper.insertItemStacked(output, stack, false).isEmpty() ? 1 : 2;
+        }
+        return 3;
+    }
+
+    private int generateAll(ServerLevel server) {
+        ItemStackHandler simulated = new ItemStackHandler(SLOTS);
+        simulated.deserializeNBT(output.serializeNBT());
+        List<ItemStack> batch = new ArrayList<>();
+        for (ResourceLocation id : selections) {
+            if (!ResourceCatalog.isAvailable(server, id)) return 3;
+            ItemStack stack = ResourceCatalog.stack(id);
+            if (stack.isEmpty()) return 3;
+            if (!ItemHandlerHelper.insertItemStacked(simulated, stack.copy(), false).isEmpty()) return 2;
+            batch.add(stack);
+        }
+        for (ItemStack stack : batch) ItemHandlerHelper.insertItemStacked(output, stack, false);
+        return 1;
     }
 
     private void ejectToNeighbors() {
@@ -111,7 +167,11 @@ public final class GeneratorBlockEntity extends BlockEntity implements MenuProvi
     @Override protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.put("Output", output.serializeNBT());
-        if (selected != null) tag.putString("Selected", selected.toString());
+        var selectedTag = new net.minecraft.nbt.ListTag();
+        for (ResourceLocation id : selections) selectedTag.add(net.minecraft.nbt.StringTag.valueOf(id.toString()));
+        tag.put("Selections", selectedTag);
+        tag.putString("Mode", mode.name());
+        tag.putInt("RoundRobinIndex", roundRobinIndex);
         tag.putInt("Ticks", ticks);
     }
 
@@ -121,7 +181,18 @@ public final class GeneratorBlockEntity extends BlockEntity implements MenuProvi
         CompoundTag inventory = tag.getCompound("Output").copy();
         inventory.putInt("Size", SLOTS);
         output.deserializeNBT(inventory);
-        selected = tag.contains("Selected") ? ResourceLocation.tryParse(tag.getString("Selected")) : null;
+        selections.clear();
+        var selectedTag = tag.getList("Selections", net.minecraft.nbt.Tag.TAG_STRING);
+        for (int i = 0; i < selectedTag.size() && selections.size() < MAX_SELECTIONS; i++) {
+            ResourceLocation id = ResourceLocation.tryParse(selectedTag.getString(i));
+            if (id != null && !selections.contains(id)) selections.add(id);
+        }
+        if (selections.isEmpty() && tag.contains("Selected")) {
+            ResourceLocation legacy = ResourceLocation.tryParse(tag.getString("Selected"));
+            if (legacy != null) selections.add(legacy);
+        }
+        try { mode = Mode.valueOf(tag.getString("Mode")); } catch (IllegalArgumentException ignored) { mode = Mode.ROUND_ROBIN; }
+        roundRobinIndex = selections.isEmpty() ? 0 : Math.floorMod(tag.getInt("RoundRobinIndex"), selections.size());
         ticks = Math.max(0, Math.min(19, tag.getInt("Ticks")));
     }
 

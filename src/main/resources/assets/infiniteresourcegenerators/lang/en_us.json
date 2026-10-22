@@ -10,10 +10,14 @@
   "gui.infiniteresourcegenerators.lock_hint": "Craft, produce, smelt, or pick up this exact item to unlock it.",
   "gui.infiniteresourcegenerators.empty": "No matching resources.",
   "gui.infiniteresourcegenerators.loading": "Loading resources from server...",
-  "gui.infiniteresourcegenerators.choose": "Select a resource above. Scroll to browse.",
-  "gui.infiniteresourcegenerators.running": "Generating 1 item / second",
+  "gui.infiniteresourcegenerators.choose": "Select resources above. Click again to remove.",
+  "gui.infiniteresourcegenerators.configured": "Selected: %s/%s",
+  "gui.infiniteresourcegenerators.round_robin": "Round Robin",
+  "gui.infiniteresourcegenerators.all_at_once": "All at Once",
+  "gui.infiniteresourcegenerators.running_round_robin": "Running: one selected resource per second",
+  "gui.infiniteresourcegenerators.running_all": "Running: all selected resources per second",
   "gui.infiniteresourcegenerators.full": "Paused: output is full",
   "gui.infiniteresourcegenerators.unavailable": "Paused: selection no longer available",
-  "gui.infiniteresourcegenerators.idle": "Idle: choose a resource",
+  "gui.infiniteresourcegenerators.idle": "Idle: choose one or more resources",
   "gui.infiniteresourcegenerators.output": "Output"
 }

@@ -1,6 +1,7 @@
 package dev.frostii.irg.network;
 
 import dev.frostii.irg.InfiniteResourceGenerators;
+import dev.frostii.irg.block.GeneratorBlockEntity;
 import dev.frostii.irg.client.ClientPackets;
 import dev.frostii.irg.menu.GeneratorMenu;
 import net.minecraft.network.FriendlyByteBuf;
@@ -17,15 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class ModNetwork {
-    private static final String VERSION = "1";
+    private static final String VERSION = "2";
     private static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(new ResourceLocation(InfiniteResourceGenerators.MOD_ID, "main"), () -> VERSION, VERSION::equals, VERSION::equals);
     private ModNetwork() { }
 
     public record SelectResource(int menuId, ResourceLocation item) { }
     public record RequestCatalog(int menuId) { }
+    public record SetMode(int menuId, GeneratorBlockEntity.Mode mode) { }
     public record CatalogEntry(ResourceLocation item, boolean available, boolean immediate) { }
     public record CatalogChunk(int menuId, boolean reset, boolean complete, List<CatalogEntry> entries) { }
-    public record SelectionState(int menuId, ResourceLocation item) { }
+    public record SelectionState(int menuId, List<ResourceLocation> items, GeneratorBlockEntity.Mode mode) { }
 
     public static void register() {
         CHANNEL.messageBuilder(SelectResource.class, 0, NetworkDirection.PLAY_TO_SERVER)
@@ -35,7 +37,7 @@ public final class ModNetwork {
                     ServerPlayer player = context.get().getSender();
                     if (player != null && player.containerMenu instanceof GeneratorMenu menu
                             && menu.containerId == message.menuId && menu.stillValid(player)
-                            && !menu.generator.select(message.item)) {
+                            && !menu.generator.toggleSelection(message.item)) {
                         player.displayClientMessage(Component.translatable("gui.infiniteresourcegenerators.rejected"), true);
                     }
                 }).add();
@@ -52,13 +54,21 @@ public final class ModNetwork {
         CHANNEL.messageBuilder(SelectionState.class, 3, NetworkDirection.PLAY_TO_CLIENT)
                 .encoder((message, buffer) -> {
                     buffer.writeVarInt(message.menuId);
-                    buffer.writeBoolean(message.item != null);
-                    if (message.item != null) buffer.writeResourceLocation(message.item);
-                }).decoder(buffer -> new SelectionState(buffer.readVarInt(), buffer.readBoolean() ? buffer.readResourceLocation() : null))
+                    buffer.writeCollection(message.items, FriendlyByteBuf::writeResourceLocation);
+                    buffer.writeEnum(message.mode);
+                }).decoder(buffer -> new SelectionState(buffer.readVarInt(), buffer.readList(FriendlyByteBuf::readResourceLocation), buffer.readEnum(GeneratorBlockEntity.Mode.class)))
                 .consumerMainThread((message, context) -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientPackets.selection(message))).add();
+        CHANNEL.messageBuilder(SetMode.class, 4, NetworkDirection.PLAY_TO_SERVER)
+                .encoder((message, buffer) -> { buffer.writeVarInt(message.menuId); buffer.writeEnum(message.mode); })
+                .decoder(buffer -> new SetMode(buffer.readVarInt(), buffer.readEnum(GeneratorBlockEntity.Mode.class)))
+                .consumerMainThread((message, context) -> {
+                    ServerPlayer player = context.get().getSender();
+                    if (player != null && player.containerMenu instanceof GeneratorMenu menu && menu.containerId == message.menuId && menu.stillValid(player)) menu.generator.setMode(message.mode);
+                }).add();
     }
 
     public static void select(int menuId, ResourceLocation item) { CHANNEL.sendToServer(new SelectResource(menuId, item)); }
+    public static void setMode(int menuId, GeneratorBlockEntity.Mode mode) { CHANNEL.sendToServer(new SetMode(menuId, mode)); }
     public static void requestCatalog(int menuId) { CHANNEL.sendToServer(new RequestCatalog(menuId)); }
     public static void send(ServerPlayer player, Object packet) { CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), packet); }
 

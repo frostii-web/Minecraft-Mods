@@ -24,8 +24,10 @@ public final class GeneratorMenu extends AbstractContainerMenu {
     public final List<ModNetwork.CatalogEntry> clientEntries = new ArrayList<>();
     public int catalogVersion;
     public boolean catalogReady;
-    public ResourceLocation clientSelected;
-    private ResourceLocation lastSelected;
+    public final List<ResourceLocation> clientSelections = new ArrayList<>();
+    public GeneratorBlockEntity.Mode clientMode = GeneratorBlockEntity.Mode.ROUND_ROBIN;
+    private List<ResourceLocation> lastSelections = List.of();
+    private GeneratorBlockEntity.Mode lastMode;
     private boolean selectionSent;
     private long unlockRevision = -1;
     private long catalogRevision = -1;
@@ -87,9 +89,10 @@ public final class GeneratorMenu extends AbstractContainerMenu {
         super.broadcastChanges();
         if (generator.getLevel() == null || generator.getLevel().isClientSide) return;
         if (owner instanceof ServerPlayer player && player.containerMenu == this) {
-            if (!selectionSent || !Objects.equals(lastSelected, generator.selected())) {
-                ModNetwork.send(player, new ModNetwork.SelectionState(containerId, generator.selected()));
-                lastSelected = generator.selected();
+            if (!selectionSent || !Objects.equals(lastSelections, generator.selections()) || lastMode != generator.mode()) {
+                ModNetwork.send(player, new ModNetwork.SelectionState(containerId, generator.selections(), generator.mode()));
+                lastSelections = generator.selections();
+                lastMode = generator.mode();
                 selectionSent = true;
             }
             long currentUnlocks = WorldUnlocks.get(player.serverLevel()).revision();
@@ -102,7 +105,7 @@ public final class GeneratorMenu extends AbstractContainerMenu {
         if (now - lastRequestTick < 20) return;
         lastRequestTick = now;
         syncCatalog(player);
-        ModNetwork.send(player, new ModNetwork.SelectionState(containerId, generator.selected()));
+        ModNetwork.send(player, new ModNetwork.SelectionState(containerId, generator.selections(), generator.mode()));
     }
 
     private void syncCatalog(ServerPlayer player) {

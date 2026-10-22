@@ -11,7 +11,7 @@
 
 ## Completed automated checks
 
-`./gradlew build runGameTestServer -PcompatMods -x downloadAssets` completed with **exit code 0** and **all 10 required GameTests passed**. Compilation, resources, and Forge reobfuscation succeeded. Gradle's ordinary `test` task has no JUnit source; the actual gameplay tests run in Forge's GameTest server. No zero-test run is counted as validation.
+`./gradlew runGameTestServer -PcompatMods -x downloadAssets` completed with **exit code 0** and **all 11 required GameTests passed** after the multi-output implementation. Compilation and resource processing succeeded. Gradle's ordinary `test` task has no JUnit source; the actual gameplay tests run in Forge's GameTest server. No zero-test run is counted as validation.
 
 | GameTest | Verified behavior |
 | --- | --- |
@@ -21,6 +21,7 @@
 | `adjacentChestReceivesOutput` | An adjacent chest receives exactly two generated items after 40 ticks. |
 | `automationRejectsInsertionAndSimulationIsSafe` | All six sides reject insertion; simulated extraction leaves inventory unchanged. |
 | `nbtRoundTripPreservesSelectionAndOutput` | Selected item, output count, and independent per-item unlock data survive serialization. |
+| `multipleSelectionsSupportBothProductionModes` | Round Robin produces one configured resource per cycle in order; All at Once produces every configured resource in one cycle; selections and mode survive NBT reload. |
 | `multipleGeneratorsChangeSelectionIndependently` | Two generators produce different selected ores; switching one retains old output and leaves the other unchanged. |
 | `naturalGtOresAndProhibitedItems` | GT iron/copper/tin/coal/redstone available immediately; registered non-worldgen cobalt ore denied; machines, motors, circuits, tools, storage, and NBT-bearing material items rejected. |
 | `survivalRecipeAndServerMenuAreRegistered` | The documented shaped recipe matches and returns the registered block; server menu has 9 output + 36 player slots and rejects output insertion. |
@@ -38,7 +39,7 @@ An isolated KubeJS verification script then supplied a real GT LV alloy smelter 
 
 JAR inspection confirmed:
 
-* 26 real Java 17 class files (`CAFEBABE`, class-file major version 61).
+* 28 real Java 17 class files (`CAFEBABE`, class-file major version 61).
 * Forge `mods.toml`, manifest Mixin registration, and the required GT output mixin.
 * Block/item models, blockstate, language file, three PNG textures, shaped recipe, block loot table, mining tags, and recipe advancement.
 * All JSON resources parse successfully; no Minecraft or GTCEu classes are bundled.

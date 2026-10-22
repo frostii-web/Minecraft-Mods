@@ -17,6 +17,10 @@ public final class ClientPackets {
     }
     public static void selection(ModNetwork.SelectionState message) {
         var player = Minecraft.getInstance().player;
-        if (player != null && player.containerMenu instanceof GeneratorMenu menu && menu.containerId == message.menuId()) menu.clientSelected = message.item();
+        if (player != null && player.containerMenu instanceof GeneratorMenu menu && menu.containerId == message.menuId()) {
+            menu.clientSelections.clear();
+            menu.clientSelections.addAll(message.items());
+            menu.clientMode = message.mode();
+        }
     }
 }
